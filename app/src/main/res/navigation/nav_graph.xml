@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_places_list">
+
+    <fragment
+        android:id="@+id/nav_places_list"
+        android:name="com.example.travelex.placesList.PlacesListFragment"
+        android:label="Lista miejsc"
+        tools:layout="@layout/places_list_fragment">
+        <action
+            android:id="@+id/action_nav_places_list_to_nav_place_detail"
+            app:destination="@id/nav_place_detail" />
+        <action
+            android:id="@+id/action_nav_places_list_to_nav_place_create"
+            app:destination="@id/nav_place_create" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_place_detail"
+        android:name="com.example.travelex.placeDetail.PlaceDetailFragment"
+        android:label="place_detail_fragment"
+        tools:layout="@layout/place_detail_fragment">
+        <argument
+            android:name="place"
+            app:argType="com.example.travelex.database.Place" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_place_create"
+        android:name="com.example.travelex.placeCreate.PlaceCreateFragment"
+        android:label="place_create_fragment"
+        tools:layout="@layout/place_create_fragment">
+        <action
+            android:id="@+id/action_nav_place_create_to_nav_places_list"
+            app:destination="@id/nav_places_list"
+            app:popUpTo="@id/nav_places_list"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

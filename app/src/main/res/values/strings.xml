@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Travelex</string>
+    <string name="title_save">Zapisz</string>
+    <string name="title_settings">Ustawienia</string>
+    <string name="title_places_list">Moje miejsca</string>
+    <string name="title_place_create">Dodaj miejsce</string>
+</resources>
