@@ -42,8 +42,8 @@ class PlacesListFragment : Fragment(), PlacesListListener {
 
         return root    }
 
-    override fun onPlaceSelected(task: Place) {
-        val actionDetail = PlacesListFragmentDirections.actionNavPlacesListToNavPlaceDetail(task)
+    override fun onPlaceSelected(place: Place) {
+        val actionDetail = PlacesListFragmentDirections.actionNavPlacesListToNavPlaceDetail(place)
         findNavController().navigate(actionDetail)
     }
 

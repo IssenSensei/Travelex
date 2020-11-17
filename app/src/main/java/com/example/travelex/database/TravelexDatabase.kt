@@ -25,32 +25,32 @@ abstract class TravelexDatabase : RoomDatabase() {
                         mutableListOf(
                             Place(
                                 0,
-                                "name1",
-                                "description1",
+                                "Zhangye Danxia Geopark, China",
+                                "Geology lovers and avid Instagrammers alike will be drawn to the otherworldly hues of the \"Rainbow Mountains.\" The colors were formed by the layering of sedimentary mineral deposits over millions of years, but it's hard to look at the flowing reds, yellows, and oranges and not feel like you're witnessing magic.",
                                 "location1",
-                                "photo1",
-                                1,
-                                "comment1",
+                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-zhangye-gettyimages-175323801-1505334995.jpg",
+                                5f,
+                                "Było super, polecam serdecznie <3",
                                 "addInfo1"
                             ),
                             Place(
                                 0,
-                                "name2",
-                                "description2",
+                                "Venice, Italy",
+                                "If traversing the canals with a be-striped gondolier sounds unbearably touristy, stick to the sidewalks and spectacular arched bridges to get your fill of this truly unique, wildly romantic floating city.",
                                 "location2",
-                                "photo2",
-                                2,
-                                "comment2",
+                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-venice-gettyimages-489741024-1505338894.jpg",
+                                4.8f,
+                                "Ekstra, tylko zbyt wielu ludzi",
                                 "addInfo2"
                             ),
                             Place(
                                 0,
-                                "name3",
-                                "description3",
+                                "Banff National Park, Canada",
+                                "The glacial lakes in Canada's first national park have some of the bluest water you've ever seen. Even if you're not particularly outdoorsy, you can still admire the views from one of the cozy and luxurious lakeside lodges throughout the park, like the Fairmont Chateau Lake Louise.",
                                 "location3",
-                                "photo3",
-                                3,
-                                "comment3",
+                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/banff-517747003-1494616292.jpg",
+                                2.9f,
+                                "Padał deszcz więc słaby wyjazd",
                                 "addInfo3"
                             ),
                         )

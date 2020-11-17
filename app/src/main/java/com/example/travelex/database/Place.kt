@@ -14,11 +14,11 @@ data class Place(
 
     var description: String = "",
 
-    val location: String = "",
+    var location: String = "",
 
     var photo: String = "",
 
-    var rating: Int = 0,
+    var rating: Float = 0f,
 
     var comment: String = "",
 

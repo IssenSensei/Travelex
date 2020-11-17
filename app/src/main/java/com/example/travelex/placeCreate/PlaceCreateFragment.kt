@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.travelex.R
 import com.example.travelex.database.Place
+import kotlinx.android.synthetic.main.place_create_fragment.*
 
 class PlaceCreateFragment : Fragment() {
 
@@ -30,7 +31,7 @@ class PlaceCreateFragment : Fragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.fragment_place_create, menu)
+        inflater.inflate(R.menu.menu_save, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -47,12 +48,12 @@ class PlaceCreateFragment : Fragment() {
         placeCreateViewModel.insert(
             Place(
                 0,
-                "nameTest1",
-                "descriptionTest1",
-                "locationTest1",
-                "photoTest1",
-                5,
-                "commentTest1",
+                place_create_name.text.toString(),
+                place_create_description.text.toString(),
+                place_create_location.text.toString(),
+                R.drawable.material_bg_2.toString(),
+                place_create_rating.rating,
+                place_create_comment.text.toString(),
                 "addInfoTest1"
             )
         )

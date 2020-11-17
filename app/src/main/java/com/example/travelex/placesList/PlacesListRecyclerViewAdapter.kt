@@ -2,11 +2,12 @@ package com.example.travelex.placesList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelex.database.Place
 import com.example.travelex.databinding.ItemPlaceBinding
+
 
 class PlacesRecyclerViewAdapter(private val placesListListener: PlacesListListener) :
     ListAdapter<Place, PlacesRecyclerViewAdapter.ViewHolder>(PlaceListDiffCallback()) {
@@ -48,3 +49,4 @@ class PlaceListDiffCallback : DiffUtil.ItemCallback<Place>() {
 interface PlacesListListener {
     fun onPlaceSelected(task: Place)
 }
+
