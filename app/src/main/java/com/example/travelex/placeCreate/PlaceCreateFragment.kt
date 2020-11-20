@@ -35,26 +35,26 @@ class PlaceCreateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ViewAnimation.initShowOut(lyt_mic)
-        ViewAnimation.initShowOut(lyt_call)
+        ViewAnimation.initShowOut(place_create_gallery_container)
+        ViewAnimation.initShowOut(place_create_camera_container)
         back_drop.visibility = View.GONE
 
-        fab_add.setOnClickListener { v -> toggleFabMode(v) }
+        place_create_add_photo.setOnClickListener { v -> toggleFabMode(v) }
 
-        back_drop.setOnClickListener { toggleFabMode(fab_add) }
+        back_drop.setOnClickListener { toggleFabMode(place_create_add_photo) }
 
-        fab_mic.setOnClickListener {
+        place_create_fab_gallery.setOnClickListener {
             Toast.makeText(
                 requireContext(),
-                "Voice clicked",
+                "Gallery picked",
                 Toast.LENGTH_SHORT
             ).show()
         }
 
-        fab_call.setOnClickListener {
+        place_create_fab_camera.setOnClickListener {
             Toast.makeText(
                 requireContext(),
-                "Call clicked",
+                "Camera picked",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -63,12 +63,12 @@ class PlaceCreateFragment : Fragment() {
     private fun toggleFabMode(v: View) {
         rotate = ViewAnimation.rotateFab(v, !rotate)
         if (rotate) {
-            ViewAnimation.showIn(lyt_mic)
-            ViewAnimation.showIn(lyt_call)
+            ViewAnimation.showIn(place_create_gallery_container)
+            ViewAnimation.showIn(place_create_camera_container)
             back_drop.visibility = View.VISIBLE
         } else {
-            ViewAnimation.showOut(lyt_mic)
-            ViewAnimation.showOut(lyt_call)
+            ViewAnimation.showOut(place_create_gallery_container)
+            ViewAnimation.showOut(place_create_camera_container)
             back_drop.visibility = View.GONE
         }
     }
