@@ -1,9 +1,10 @@
-package com.example.travelex
+package com.example.travelex.helpers
 
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
 
 @BindingAdapter("photo")

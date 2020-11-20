@@ -10,13 +10,11 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.*
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.travelex.R
-import com.example.travelex.ViewAnimation
+import com.example.travelex.helpers.ViewAnimation
 import com.example.travelex.database.Place
 import kotlinx.android.synthetic.main.place_create_fragment.*
 import java.io.File

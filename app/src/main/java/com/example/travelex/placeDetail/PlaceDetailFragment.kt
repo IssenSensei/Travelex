@@ -5,12 +5,10 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.example.travelex.R
-import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceDetailFragmentBinding
-import com.example.travelex.placesList.PlacesListFragmentDirections
+import com.example.travelex.helpers.AdapterImageSlider
 
 class PlaceDetailFragment : Fragment() {
     private lateinit var placeWithPhotos: PlaceWithPhotos
@@ -35,6 +33,10 @@ class PlaceDetailFragment : Fragment() {
 
         binding.executePendingBindings()
 
+        val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
+        binding.placeDetailPager.adapter = sliderAdapter
+        sliderAdapter.startAutoSlider(binding.placeDetailPager)
+
         return view
     }
 
@@ -44,12 +46,16 @@ class PlaceDetailFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.action_save -> {
-                val actionEdit = PlaceDetailFragmentDirections.actionNavPlaceDetailToNavPlaceEdit(placeWithPhotos)
+                val actionEdit = PlaceDetailFragmentDirections.actionNavPlaceDetailToNavPlaceEdit(
+                    placeWithPhotos
+                )
                 findNavController().navigate(actionEdit)
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 }

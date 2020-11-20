@@ -68,7 +68,7 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'com.mikhaellopez:circularimageview:3.2.0'          // circle image view
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.balysv:material-ripple:1.0.2'                  // ripple effect
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
