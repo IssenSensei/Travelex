@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.travelex.R
-import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
 import kotlinx.android.synthetic.main.places_list_fragment.view.*
 
@@ -26,7 +25,7 @@ class PlacesListFragment : Fragment(), PlacesListListener {
 
 
         val root = inflater.inflate(R.layout.places_list_fragment, container, false)
-        val adapter = PlaceWithPhotosRecyclerViewAdapter(this)
+        val adapter = PlaceWithPhotosRecyclerViewAdapter(this, requireActivity())
 
         placesListViewModel.allTasks.observe(viewLifecycleOwner, Observer {
             it?.let {

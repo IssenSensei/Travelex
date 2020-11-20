@@ -8,14 +8,18 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.view.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager.widget.ViewPager
 import com.example.travelex.R
 import com.example.travelex.helpers.ViewAnimation
 import com.example.travelex.database.Place
+import com.example.travelex.helpers.AdapterImageSlider
 import kotlinx.android.synthetic.main.place_create_fragment.*
 import java.io.File
 import java.io.IOException
@@ -24,9 +28,11 @@ class PlaceCreateFragment : Fragment() {
 
     private val CAMERA_CODE = 0
     private val GALLERY_CODE = 1
-
+    private lateinit var sliderAdapter: AdapterImageSlider
     private lateinit var placeCreateViewModel: PlaceCreateViewModel
     private var rotate = false
+    private var runnable: Runnable? = null
+    private var handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,7 +154,7 @@ class PlaceCreateFragment : Fragment() {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
                             contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
                         placeCreateViewModel.savePhoto(uri.toString())
-                        addImageToGrid(uri)
+                        addImageToSlider()
                     }
 
                 }
@@ -157,19 +163,24 @@ class PlaceCreateFragment : Fragment() {
                 val image: Uri? = data?.data
                 if (image != null) {
                     placeCreateViewModel.savePhoto(image.toString())
-                    addImageToGrid(image)
+                    addImageToSlider()
                 }
             }
         }
     }
 
-    //todo
-    private fun addImageToGrid(uri: Uri?) {
-//        val imageView = ImageView(requireContext()).apply {
-//            id = (taskCreateViewModel.photos.size - 1)
-//            setImageURI(uri)
-//        }
-//        task_photos_grid.addView(imageView)
+    private fun addImageToSlider() {
+        if(place_create_pager.isVisible){
+            sliderAdapter.stopAutoSlider()
+            sliderAdapter.notifyDataSetChanged()
+            sliderAdapter.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
+        } else {
+            place_create_pager.visibility = View.VISIBLE
+            place_create_pager_placeholder.visibility = View.GONE
+            sliderAdapter = AdapterImageSlider(requireActivity(), placeCreateViewModel.photos)
+            place_create_pager.adapter = sliderAdapter
+            sliderAdapter.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
+        }
     }
 
 

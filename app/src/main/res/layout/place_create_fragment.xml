@@ -23,7 +23,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/place_create_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
             <ImageView
+                android:id="@+id/place_create_pager_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:scaleType="centerCrop"

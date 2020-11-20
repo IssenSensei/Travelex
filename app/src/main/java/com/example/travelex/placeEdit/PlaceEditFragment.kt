@@ -12,6 +12,7 @@ import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceDetailFragmentBinding
 import com.example.travelex.databinding.PlaceEditFragmentBinding
+import com.example.travelex.helpers.AdapterImageSlider
 import com.example.travelex.placeDetail.PlaceDetailFragmentArgs
 import com.example.travelex.placeDetail.PlaceDetailFragmentDirections
 import kotlinx.android.synthetic.main.place_create_fragment.*
@@ -45,6 +46,11 @@ class PlaceEditFragment : Fragment() {
 
         binding.placeWithPhotos = placeWithPhotos
 
+        //todo pobierać zdjęcia z viewmodelu bo te mogą się zmienić
+        //todo wyswietlać grid na dole z możliwością usuwania zdjeć
+        val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
+        binding.placeEditPager.adapter = sliderAdapter
+        sliderAdapter.startAutoSlider(placeWithPhotos.photos.size, binding.placeEditPager)
         binding.executePendingBindings()
 
         return view

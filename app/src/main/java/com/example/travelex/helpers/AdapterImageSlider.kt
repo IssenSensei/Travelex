@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
 import kotlinx.android.synthetic.main.item_image.view.*
-import kotlinx.android.synthetic.main.place_detail_fragment.*
 
 class AdapterImageSlider(private val activity: Activity, items: List<PhotoModel>) : PagerAdapter() {
 
@@ -50,16 +48,24 @@ class AdapterImageSlider(private val activity: Activity, items: List<PhotoModel>
         return view
     }
 
-    fun startAutoSlider(pager: ViewPager) {
-        val imagesCount = count
+
+    fun startAutoSlider(count: Int, placeDetailPager: ViewPager) {
         runnable = Runnable {
-            var pos: Int = pager.currentItem
+            var pos: Int = placeDetailPager.currentItem
             pos += 1
-            if (pos >= imagesCount) pos = 0
-            pager.currentItem = pos
-            handler.postDelayed({ runnable!! }, 3000)
+            if (pos >= count) pos = 0
+            placeDetailPager.currentItem = pos
+            handler.postDelayed(runnable!!, 3000)
         }
         handler.postDelayed(runnable!!, 3000)
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        (container as ViewPager).removeView(`object` as View)
+    }
+
+    fun stopAutoSlider(){
+        runnable?.let { handler.removeCallbacks(it) }
     }
 
 }

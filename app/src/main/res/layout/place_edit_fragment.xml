@@ -43,12 +43,20 @@
                         android:background="@color/grey_10"
                         android:orientation="vertical">
 
-                        <ImageView
-                            photo="@{placeWithPhotos.photos}"
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/place_edit_pager"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/material_bg_2" />
+                            android:layout_height="match_parent"/>
+
+<!--                        //todo może się przydać po usunięciu wszystkich zdjęć-->
+<!--                        <ImageView-->
+<!--                            photo="@{placeWithPhotos.photos}"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:scaleType="centerCrop"-->
+<!--                            app:srcCompat="@drawable/material_bg_2" />-->
+
+
 
 
                     </LinearLayout>

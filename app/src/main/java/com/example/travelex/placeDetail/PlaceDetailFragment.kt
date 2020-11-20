@@ -1,14 +1,18 @@
 package com.example.travelex.placeDetail
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager.widget.ViewPager
 import com.example.travelex.R
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceDetailFragmentBinding
 import com.example.travelex.helpers.AdapterImageSlider
+import kotlinx.android.synthetic.main.place_detail_fragment.*
 
 class PlaceDetailFragment : Fragment() {
     private lateinit var placeWithPhotos: PlaceWithPhotos
@@ -33,9 +37,10 @@ class PlaceDetailFragment : Fragment() {
 
         binding.executePendingBindings()
 
+        //todo wyswietlać grid na dole z możliwością usuwania zdjeć
         val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
         binding.placeDetailPager.adapter = sliderAdapter
-        sliderAdapter.startAutoSlider(binding.placeDetailPager)
+        sliderAdapter.startAutoSlider(sliderAdapter.count, binding.placeDetailPager)
 
         return view
     }
@@ -56,6 +61,4 @@ class PlaceDetailFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 }

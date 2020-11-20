@@ -105,14 +105,19 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_60" />
 
-            <ImageView
-                android:id="@+id/place_image"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/place_item_pager"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:visibility="gone"
-                android:scaleType="centerCrop"
-                app:photo="@{placeWithPhoto.photos}"
-                android:layout_marginBottom="@dimen/spacing_xlarge"/>
+                android:layout_height="230dp"/>
+
+<!--            <ImageView-->
+<!--                android:id="@+id/place_image"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:visibility="gone"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                app:photo="@{placeWithPhoto.photos}"-->
+<!--                android:layout_marginBottom="@dimen/spacing_xlarge"/>-->
 
 
         </LinearLayout>
