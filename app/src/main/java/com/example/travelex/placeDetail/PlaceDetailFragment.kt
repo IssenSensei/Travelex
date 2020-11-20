@@ -8,11 +8,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import com.example.travelex.R
 import com.example.travelex.database.Place
+import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceDetailFragmentBinding
 import com.example.travelex.placesList.PlacesListFragmentDirections
 
 class PlaceDetailFragment : Fragment() {
-    private lateinit var place: Place
+    private lateinit var placeWithPhotos: PlaceWithPhotos
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +29,9 @@ class PlaceDetailFragment : Fragment() {
         val view = binding.root
 
         val safeArgs: PlaceDetailFragmentArgs by navArgs()
-        place = safeArgs.place
+        placeWithPhotos = safeArgs.placeWithPhotos
 
-        binding.place = place
+        binding.placeWithPhotos = placeWithPhotos
 
         binding.executePendingBindings()
 
@@ -45,7 +46,7 @@ class PlaceDetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.action_save -> {
-                val actionEdit = PlaceDetailFragmentDirections.actionNavPlaceDetailToNavPlaceEdit(place)
+                val actionEdit = PlaceDetailFragmentDirections.actionNavPlaceDetailToNavPlaceEdit(placeWithPhotos)
                 findNavController().navigate(actionEdit)
             }
         }

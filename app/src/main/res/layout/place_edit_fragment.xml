@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="place"
-            type="com.example.travelex.database.Place" />
+            name="placeWithPhotos"
+            type="com.example.travelex.database.PlaceWithPhotos" />
 
     </data>
 
@@ -43,11 +44,12 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            photo="@{placeWithPhotos.photos}"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            photo="@{place.photo}"
                             app:srcCompat="@drawable/material_bg_2" />
+
 
                     </LinearLayout>
 
@@ -84,7 +86,7 @@
                                     android:id="@+id/place_edit_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@{place.name}"/>
+                                    android:text="@{placeWithPhotos.place.name}" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,8 +129,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:inputType="textMultiLine"
-                                        android:text="@{place.description}"
-                                        android:minLines="3" />
+                                        android:minLines="3"
+                                        android:text="@{placeWithPhotos.place.description}" />
 
                                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,7 +174,7 @@
                                         android:id="@+id/place_edit_location"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text="@{place.location}" />
+                                        android:text="@{placeWithPhotos.place.location}" />
 
                                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,8 +211,8 @@
                                 android:layout_gravity="center"
                                 android:isIndicator="false"
                                 android:numStars="5"
-                                android:rating="@{place.rating}"
                                 android:progressTint="@color/yellow_800"
+                                android:rating="@{placeWithPhotos.place.rating}"
                                 android:secondaryProgressTint="@android:color/transparent"
                                 android:stepSize="0.1" />
                         </LinearLayout>
@@ -246,9 +248,9 @@
                                     android:id="@+id/place_edit_comment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@{place.comment}"
                                     android:inputType="textMultiLine"
-                                    android:minLines="4" />
+                                    android:minLines="4"
+                                    android:text="@{placeWithPhotos.place.comment}" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 

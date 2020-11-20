@@ -16,11 +16,7 @@ data class Place(
 
     var location: String = "",
 
-    var photo: String = "",
-
     var rating: Float = 0f,
 
-    var comment: String = "",
-
-    var additionalInfo: String = ""
+    var comment: String = ""
 ) : Serializable

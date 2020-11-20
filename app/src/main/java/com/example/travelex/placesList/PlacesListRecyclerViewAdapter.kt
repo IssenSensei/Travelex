@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelex.database.Place
+import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.ItemPlaceBinding
 
 
-class PlacesRecyclerViewAdapter(private val placesListListener: PlacesListListener) :
-    ListAdapter<Place, PlacesRecyclerViewAdapter.ViewHolder>(PlaceListDiffCallback()) {
+class PlaceWithPhotosRecyclerViewAdapter(private val placesListListener: PlacesListListener) :
+    ListAdapter<PlaceWithPhotos, PlaceWithPhotosRecyclerViewAdapter.ViewHolder>(PlaceWithPhotosListDiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,8 +27,8 @@ class PlacesRecyclerViewAdapter(private val placesListListener: PlacesListListen
     class ViewHolder(private val binding: ItemPlaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Place, placesListListener: PlacesListListener) {
-            binding.place = item
+        fun bind(item: PlaceWithPhotos, placesListListener: PlacesListListener) {
+            binding.placeWithPhoto = item
             binding.clickListener = placesListListener
             binding.executePendingBindings()
         }
@@ -36,17 +37,17 @@ class PlacesRecyclerViewAdapter(private val placesListListener: PlacesListListen
 
 }
 
-class PlaceListDiffCallback : DiffUtil.ItemCallback<Place>() {
-    override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
-        return oldItem.id == newItem.id
+class PlaceWithPhotosListDiffCallback : DiffUtil.ItemCallback<PlaceWithPhotos>() {
+    override fun areItemsTheSame(oldItem: PlaceWithPhotos, newItem: PlaceWithPhotos): Boolean {
+        return oldItem.place.id == newItem.place.id
     }
 
-    override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
+    override fun areContentsTheSame(oldItem: PlaceWithPhotos, newItem: PlaceWithPhotos): Boolean {
         return oldItem == newItem
     }
 }
 
 interface PlacesListListener {
-    fun onPlaceSelected(task: Place)
+    fun onPlaceSelected(place: PlaceWithPhotos)
 }
 

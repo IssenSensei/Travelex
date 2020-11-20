@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.travelex.R
 import com.example.travelex.database.Place
+import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceDetailFragmentBinding
 import com.example.travelex.databinding.PlaceEditFragmentBinding
 import com.example.travelex.placeDetail.PlaceDetailFragmentArgs
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.place_edit_fragment.*
 class PlaceEditFragment : Fragment() {
 
     private lateinit var placeEditViewModel: PlaceEditViewModel
-    private lateinit var place: Place
+    private lateinit var placeWithPhotos: PlaceWithPhotos
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +41,9 @@ class PlaceEditFragment : Fragment() {
         val view = binding.root
 
         val safeArgs: PlaceEditFragmentArgs by navArgs()
-        place = safeArgs.place
+        placeWithPhotos = safeArgs.placeWithPhotos
 
-        binding.place = place
+        binding.placeWithPhotos = placeWithPhotos
 
         binding.executePendingBindings()
 
@@ -64,12 +65,12 @@ class PlaceEditFragment : Fragment() {
     }
 
     private fun updatePlace() {
-        place.name = place_edit_name.text.toString()
-        place.description = place_edit_description.text.toString()
-        place.location = place_edit_location.text.toString()
-        place.rating = place_edit_rating.rating
-        place.comment = place_edit_comment.text.toString()
-        placeEditViewModel.insert(place)
+        placeWithPhotos.place.name = place_edit_name.text.toString()
+        placeWithPhotos.place.description = place_edit_description.text.toString()
+        placeWithPhotos.place.location = place_edit_location.text.toString()
+        placeWithPhotos.place.rating = place_edit_rating.rating
+        placeWithPhotos.place.comment = place_edit_comment.text.toString()
+        placeEditViewModel.insert(placeWithPhotos)
         findNavController().popBackStack()
     }
 

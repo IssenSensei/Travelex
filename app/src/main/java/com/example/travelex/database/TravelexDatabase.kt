@@ -8,10 +8,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Place::class], version = 1, exportSchema = false)
+@Database(entities = [Place::class, PhotoModel::class], version = 1, exportSchema = false)
 abstract class TravelexDatabase : RoomDatabase() {
 
     abstract val placeDao: PlaceDao
+    abstract val photoModelDao: PhotoModelDao
 
     private class TravelexDatabaseCallback(private val scope: CoroutineScope) :
         RoomDatabase.Callback() {
@@ -20,38 +21,58 @@ abstract class TravelexDatabase : RoomDatabase() {
             INSTANCE?.let {
                 scope.launch {
                     val placeDao = it.placeDao
+                    val photoModelDao = it.photoModelDao
                     placeDao.deleteAll()
+                    photoModelDao.deleteAll()
                     placeDao.insert(
                         mutableListOf(
                             Place(
-                                0,
+                                1,
                                 "Zhangye Danxia Geopark, China",
                                 "Geology lovers and avid Instagrammers alike will be drawn to the otherworldly hues of the \"Rainbow Mountains.\" The colors were formed by the layering of sedimentary mineral deposits over millions of years, but it's hard to look at the flowing reds, yellows, and oranges and not feel like you're witnessing magic.",
                                 "location1",
-                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-zhangye-gettyimages-175323801-1505334995.jpg",
                                 5f,
-                                "Było super, polecam serdecznie <3",
-                                "addInfo1"
+                                "Było super, polecam serdecznie <3"
                             ),
                             Place(
-                                0,
+                                2,
                                 "Venice, Italy",
                                 "If traversing the canals with a be-striped gondolier sounds unbearably touristy, stick to the sidewalks and spectacular arched bridges to get your fill of this truly unique, wildly romantic floating city.",
                                 "location2",
-                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-venice-gettyimages-489741024-1505338894.jpg",
                                 4.8f,
-                                "Ekstra, tylko zbyt wielu ludzi",
-                                "addInfo2"
+                                "Ekstra, tylko zbyt wielu ludzi"
                             ),
                             Place(
-                                0,
+                                3,
                                 "Banff National Park, Canada",
                                 "The glacial lakes in Canada's first national park have some of the bluest water you've ever seen. Even if you're not particularly outdoorsy, you can still admire the views from one of the cozy and luxurious lakeside lodges throughout the park, like the Fairmont Chateau Lake Louise.",
                                 "location3",
-                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/banff-517747003-1494616292.jpg",
                                 2.9f,
-                                "Padał deszcz więc słaby wyjazd",
-                                "addInfo3"
+                                "Padał deszcz więc słaby wyjazd"
+                            ),
+                        )
+                    )
+                    photoModelDao.insert(
+                        mutableListOf(
+                            PhotoModel(
+                                0,
+                                1,
+                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-zhangye-gettyimages-175323801-1505334995.jpg"
+                            ),
+                            PhotoModel(
+                                0,
+                                2,
+                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-venice-gettyimages-489741024-1505338894.jpg"
+                            ),
+                            PhotoModel(
+                                0,
+                                3,
+                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/banff-517747003-1494616292.jpg"
+                            ),
+                            PhotoModel(
+                                0,
+                                1,
+                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/banff-517747003-1494616292.jpg"
                             ),
                         )
                     )

@@ -23,8 +23,8 @@
         android:label="My place"
         tools:layout="@layout/place_detail_fragment">
         <argument
-            android:name="place"
-            app:argType="com.example.travelex.database.Place" />
+            android:name="placeWithPhotos"
+            app:argType="com.example.travelex.database.PlaceWithPhotos" />
         <action
             android:id="@+id/action_nav_place_detail_to_nav_place_edit"
             app:destination="@id/nav_place_edit" />
@@ -46,7 +46,7 @@
         android:label="Edit place"
         tools:layout="@layout/place_edit_fragment">
     <argument
-            android:name="place"
-            app:argType="com.example.travelex.database.Place" />
+            android:name="placeWithPhotos"
+            app:argType="com.example.travelex.database.PlaceWithPhotos" />
     </fragment>
 </navigation>

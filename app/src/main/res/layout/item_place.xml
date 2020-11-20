@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="place"
-            type="com.example.travelex.database.Place" />
+            name="placeWithPhoto"
+            type="com.example.travelex.database.PlaceWithPhotos" />
 
         <variable
             name="clickListener"
@@ -21,7 +21,7 @@
         android:layout_marginTop="@dimen/spacing_medium"
         android:layout_marginRight="@dimen/spacing_middle"
         android:layout_marginBottom="@dimen/spacing_medium"
-        android:onClick="@{() -> clickListener.onPlaceSelected(place)}"
+        android:onClick="@{() -> clickListener.onPlaceSelected(placeWithPhoto)}"
         app:cardCornerRadius="0dp"
         app:cardElevation="4dp">
 
@@ -85,7 +85,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="@{place.location}"
+                            android:text="@{placeWithPhoto.place.location}"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:textColor="@color/light_blue_400"
                             android:textStyle="bold" />
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_large"
                 android:lineSpacingExtra="4dp"
-                android:text="@{place.name}"
+                android:text="@{placeWithPhoto.place.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_60" />
 
@@ -111,8 +111,9 @@
                 android:layout_height="200dp"
                 android:visibility="gone"
                 android:scaleType="centerCrop"
-                app:photo="@{place.photo}"
+                app:photo="@{placeWithPhoto.photos}"
                 android:layout_marginBottom="@dimen/spacing_xlarge"/>
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
