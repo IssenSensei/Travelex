@@ -14,10 +14,19 @@ import kotlinx.coroutines.launch
 class PlaceEditViewModel(application: Application) : AndroidViewModel(application) {
 
     private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
+    private val photoModelDao = TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
 
     fun insert(placeWithPhotos: PlaceWithPhotos) {
         viewModelScope.launch(Dispatchers.IO){
             placeDao.update(placeWithPhotos.place)
+        }
+    }
+
+    fun delete(placeWithPhotos: PlaceWithPhotos) {
+        viewModelScope.launch(Dispatchers.IO){
+
+            placeDao.delete(placeWithPhotos.place)
+            photoModelDao.delete(placeWithPhotos.photos)
         }
     }
 }

@@ -15,6 +15,7 @@ import com.example.travelex.databinding.PlaceEditFragmentBinding
 import com.example.travelex.helpers.AdapterImageSlider
 import com.example.travelex.placeDetail.PlaceDetailFragmentArgs
 import com.example.travelex.placeDetail.PlaceDetailFragmentDirections
+import com.example.travelex.placesList.PlacesListFragment
 import kotlinx.android.synthetic.main.place_create_fragment.*
 import kotlinx.android.synthetic.main.place_create_fragment.place_create_comment
 import kotlinx.android.synthetic.main.place_create_fragment.place_create_description
@@ -58,7 +59,7 @@ class PlaceEditFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
-        inflater.inflate(R.menu.menu_save, menu)
+        inflater.inflate(R.menu.menu_edit, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -66,8 +67,16 @@ class PlaceEditFragment : Fragment() {
             R.id.action_save -> {
                 updatePlace()
             }
+            R.id.action_delete -> {
+                deletePlace()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun deletePlace() {
+        placeEditViewModel.delete(placeWithPhotos)
+        findNavController().popBackStack(R.id.nav_places_list, true)
     }
 
     private fun updatePlace() {

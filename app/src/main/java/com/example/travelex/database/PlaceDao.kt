@@ -22,5 +22,8 @@ interface PlaceDao{
     @Update
     fun update(place: Place)
 
+    @Delete
+    fun delete(place: Place)
+
 
 }
