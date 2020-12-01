@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.ItemPlaceBinding
-import com.example.travelex.helpers.AdapterImageSlider
+import com.example.travelex.misc.AdapterImageSlider
 
 
 class PlaceWithPhotosRecyclerViewAdapter(

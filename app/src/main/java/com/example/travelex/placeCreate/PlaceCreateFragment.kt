@@ -11,18 +11,25 @@ import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
 import android.view.*
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import com.example.travelex.R
-import com.example.travelex.helpers.ViewAnimation
 import com.example.travelex.database.Place
-import com.example.travelex.helpers.AdapterImageSlider
+import com.example.travelex.misc.AdapterImageSlider
+import com.example.travelex.misc.ViewAnimation
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.place_create_fragment.*
 import java.io.File
 import java.io.IOException
+
 
 class PlaceCreateFragment : Fragment() {
 
@@ -31,14 +38,22 @@ class PlaceCreateFragment : Fragment() {
     private lateinit var sliderAdapter: AdapterImageSlider
     private lateinit var placeCreateViewModel: PlaceCreateViewModel
     private var rotate = false
-    private var runnable: Runnable? = null
-    private var handler = Handler()
+    private var selectedPosition: LatLng? = null
+
+    private val callback = OnMapReadyCallback { googleMap ->
+        val zoom = 16f
+        if (selectedPosition != null) {
+            googleMap.addMarker(MarkerOptions().position(selectedPosition!!).title("Current mark"))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPosition, zoom))
+        }
+        googleMap.uiSettings.isMapToolbarEnabled = false
+        googleMap.uiSettings.isZoomControlsEnabled = false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,21 +85,31 @@ class PlaceCreateFragment : Fragment() {
             val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(takePicture, CAMERA_CODE)
         }
-    }
 
-    private fun toggleFabMode(v: View) {
-        rotate = ViewAnimation.rotateFab(v, !rotate)
-        if (rotate) {
-            ViewAnimation.showIn(place_create_gallery_container)
-            ViewAnimation.showIn(place_create_camera_container)
-            back_drop.visibility = View.VISIBLE
-        } else {
-            ViewAnimation.showOut(place_create_gallery_container)
-            ViewAnimation.showOut(place_create_camera_container)
-            back_drop.visibility = View.GONE
+        //todo places api
+        //todo picture quality
+        //todo rating update
+
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.place_create_map) as SupportMapFragment?
+        mapFragment!!.getMapAsync(callback)
+
+        mapFragment.requireView().visibility = View.GONE
+
+        place_create_map_button.setOnClickListener {
+            val bundle = bundleOf("selectedPosition" to selectedPosition)
+            findNavController().navigate(R.id.nav_maps, bundle)
         }
-    }
 
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>("location")
+            ?.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    place_create_location.setText(it?.latitude.toString() + ", " + it?.longitude.toString())
+                    mapFragment.requireView().visibility = View.VISIBLE
+                    selectedPosition = it
+                }
+            }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_save, menu)
@@ -100,6 +125,19 @@ class PlaceCreateFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun toggleFabMode(v: View) {
+        rotate = ViewAnimation.rotateFab(v, !rotate)
+        if (rotate) {
+            ViewAnimation.showIn(place_create_gallery_container)
+            ViewAnimation.showIn(place_create_camera_container)
+            back_drop.visibility = View.VISIBLE
+        } else {
+            ViewAnimation.showOut(place_create_gallery_container)
+            ViewAnimation.showOut(place_create_camera_container)
+            back_drop.visibility = View.GONE
+        }
+    }
+
     private fun savePlace() {
         placeCreateViewModel.insert(
             Place(
@@ -108,7 +146,8 @@ class PlaceCreateFragment : Fragment() {
                 place_create_description.text.toString(),
                 place_create_location.text.toString(),
                 place_create_rating.rating,
-                place_create_comment.text.toString())
+                place_create_comment.text.toString()
+            )
         )
         findNavController().popBackStack()
     }
@@ -120,10 +159,14 @@ class PlaceCreateFragment : Fragment() {
                 val extras = data?.extras
                 val image = extras!!["data"] as Bitmap?
                 if (image != null) {
-                    val relativeLocation = Environment.DIRECTORY_PICTURES + File.separator + "Travelex"
+                    val relativeLocation =
+                        Environment.DIRECTORY_PICTURES + File.separator + "Travelex"
 
                     val contentValues = ContentValues().apply {
-                        put(MediaStore.Images.ImageColumns.DISPLAY_NAME, System.currentTimeMillis().toString())
+                        put(
+                            MediaStore.Images.ImageColumns.DISPLAY_NAME,
+                            System.currentTimeMillis().toString()
+                        )
                         put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { //this one
                             put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation)
@@ -131,7 +174,10 @@ class PlaceCreateFragment : Fragment() {
                     }
 
                     val resolver = requireActivity().contentResolver
-                    val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                    val uri = resolver.insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        contentValues
+                    )
                     try {
 
                         uri?.let { uri ->
@@ -170,7 +216,7 @@ class PlaceCreateFragment : Fragment() {
     }
 
     private fun addImageToSlider() {
-        if(place_create_pager.isVisible){
+        if (place_create_pager.isVisible) {
             sliderAdapter.stopAutoSlider()
             sliderAdapter.notifyDataSetChanged()
             sliderAdapter.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)

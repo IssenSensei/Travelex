@@ -1,4 +1,4 @@
-package com.example.travelex.helpers
+package com.example.travelex.misc
 
 import android.app.Activity
 import android.content.Context

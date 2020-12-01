@@ -4,23 +4,12 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.travelex.R
-import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
-import com.example.travelex.databinding.PlaceDetailFragmentBinding
 import com.example.travelex.databinding.PlaceEditFragmentBinding
-import com.example.travelex.helpers.AdapterImageSlider
-import com.example.travelex.placeDetail.PlaceDetailFragmentArgs
-import com.example.travelex.placeDetail.PlaceDetailFragmentDirections
-import com.example.travelex.placesList.PlacesListFragment
-import kotlinx.android.synthetic.main.place_create_fragment.*
-import kotlinx.android.synthetic.main.place_create_fragment.place_create_comment
-import kotlinx.android.synthetic.main.place_create_fragment.place_create_description
-import kotlinx.android.synthetic.main.place_create_fragment.place_create_location
-import kotlinx.android.synthetic.main.place_create_fragment.place_create_name
+import com.example.travelex.misc.AdapterImageSlider
 import kotlinx.android.synthetic.main.place_edit_fragment.*
 
 class PlaceEditFragment : Fragment() {

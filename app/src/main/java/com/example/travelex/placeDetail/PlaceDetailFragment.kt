@@ -1,18 +1,14 @@
 package com.example.travelex.placeDetail
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.viewpager.widget.ViewPager
 import com.example.travelex.R
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceDetailFragmentBinding
-import com.example.travelex.helpers.AdapterImageSlider
-import kotlinx.android.synthetic.main.place_detail_fragment.*
+import com.example.travelex.misc.AdapterImageSlider
 
 class PlaceDetailFragment : Fragment() {
     private lateinit var placeWithPhotos: PlaceWithPhotos

@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:map="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
                 android:id="@+id/place_create_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/place_create_pager_placeholder"
@@ -131,12 +132,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:orientation="horizontal">
 
                     <ImageButton
@@ -152,8 +152,9 @@
                         android:layout_height="match_parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="6"
                         android:textColorHint="@color/grey_40">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -164,7 +165,32 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <Button
+                        android:id="@+id/place_create_map_button"
+                        style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:text="Map" />
+
                 </LinearLayout>
+
+                <!--                <com.google.android.gms.maps.MapView-->
+                <!--                    android:id="@+id/place_create_map"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="300dp"-->
+                <!--                    android:layout_marginTop="@dimen/spacing_medium" />-->
+
+                <fragment xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/place_create_map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    map:liteMode="true"
+                    map:cameraZoom="17"
+                    tools:context=".map.MapsFragment" />
 
             </LinearLayout>
 

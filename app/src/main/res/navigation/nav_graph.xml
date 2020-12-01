@@ -39,6 +39,9 @@
             app:destination="@id/nav_places_list"
             app:popUpTo="@id/nav_places_list"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_nav_place_create_to_nav_maps"
+            app:destination="@id/nav_maps" />
     </fragment>
     <fragment
         android:id="@+id/nav_place_edit"
@@ -48,5 +51,14 @@
     <argument
             android:name="placeWithPhotos"
             app:argType="com.example.travelex.database.PlaceWithPhotos" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_maps"
+        android:name="com.example.travelex.map.MapsFragment"
+        android:label="Maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_nav_maps_to_nav_place_create"
+            app:destination="@id/nav_place_create" />
     </fragment>
 </navigation>
