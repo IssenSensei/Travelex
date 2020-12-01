@@ -184,6 +184,16 @@
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40" />
 
+                            <fragment
+                                android:id="@+id/place_detail_map"
+                                android:name="com.google.android.gms.maps.SupportMapFragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="300dp"
+                                android:layout_marginTop="@dimen/spacing_medium"
+                                app:cameraZoom="17"
+                                app:liteMode="true"
+                                tools:context=".map.MapsFragment" />
+
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>

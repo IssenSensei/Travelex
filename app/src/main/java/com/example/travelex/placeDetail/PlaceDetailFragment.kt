@@ -9,9 +9,28 @@ import com.example.travelex.R
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceDetailFragmentBinding
 import com.example.travelex.misc.AdapterImageSlider
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+
 
 class PlaceDetailFragment : Fragment() {
     private lateinit var placeWithPhotos: PlaceWithPhotos
+
+    private val callback = OnMapReadyCallback { googleMap ->
+
+        val latlong = placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
+        val location = LatLng(latlong[0].toDouble(), latlong[1].toDouble())
+
+        val zoom = 16f
+        googleMap.addMarker(MarkerOptions().position(location).title(placeWithPhotos.place.name))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoom))
+
+        googleMap.uiSettings.isMapToolbarEnabled = false
+        googleMap.uiSettings.isZoomControlsEnabled = false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +50,16 @@ class PlaceDetailFragment : Fragment() {
 
         binding.placeWithPhotos = placeWithPhotos
 
-        binding.executePendingBindings()
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.place_detail_map) as SupportMapFragment?
+        mapFragment!!.getMapAsync(callback)
 
         //todo wyswietlać grid na dole z możliwością usuwania zdjeć
         val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
         binding.placeDetailPager.adapter = sliderAdapter
         sliderAdapter.startAutoSlider(sliderAdapter.count, binding.placeDetailPager)
 
+        binding.executePendingBindings()
         return view
     }
 

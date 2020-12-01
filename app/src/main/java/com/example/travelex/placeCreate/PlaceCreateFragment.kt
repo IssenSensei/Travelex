@@ -94,12 +94,12 @@ class PlaceCreateFragment : Fragment() {
             childFragmentManager.findFragmentById(R.id.place_create_map) as SupportMapFragment?
         mapFragment!!.getMapAsync(callback)
 
-        mapFragment.requireView().visibility = View.GONE
-
         place_create_map_button.setOnClickListener {
             val bundle = bundleOf("selectedPosition" to selectedPosition)
             findNavController().navigate(R.id.nav_maps, bundle)
         }
+
+        mapFragment.requireView().visibility = View.GONE
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>("location")
             ?.observe(viewLifecycleOwner) {
