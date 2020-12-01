@@ -2,7 +2,9 @@ package com.example.travelex.placeDetail
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.travelex.R
@@ -17,15 +19,15 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class PlaceDetailFragment : Fragment() {
-    private lateinit var placeWithPhotos: PlaceWithPhotos
+    private lateinit var placeDetailViewModel: PlaceDetailViewModel
 
     private val callback = OnMapReadyCallback { googleMap ->
 
-        val latlong = placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
+        val latlong = placeDetailViewModel.placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
         val location = LatLng(latlong[0].toDouble(), latlong[1].toDouble())
 
         val zoom = 16f
-        googleMap.addMarker(MarkerOptions().position(location).title(placeWithPhotos.place.name))
+        googleMap.addMarker(MarkerOptions().position(location).title(placeDetailViewModel.placeWithPhotos.place.name))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoom))
 
         googleMap.uiSettings.isMapToolbarEnabled = false
@@ -41,11 +43,11 @@ class PlaceDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        placeDetailViewModel = ViewModelProvider(this).get(PlaceDetailViewModel::class.java)
         val binding = PlaceDetailFragmentBinding.inflate(inflater, container, false)
         val safeArgs: PlaceDetailFragmentArgs by navArgs()
-        placeWithPhotos = safeArgs.placeWithPhotos
-        binding.placeWithPhotos = placeWithPhotos
+        placeDetailViewModel.placeWithPhotos = safeArgs.placeWithPhotos
+        binding.placeWithPhotos = placeDetailViewModel.placeWithPhotos
 
         initMap(binding)
         initSlider(binding)
@@ -63,7 +65,7 @@ class PlaceDetailFragment : Fragment() {
         when (item.itemId) {
             R.id.action_save -> {
                 val actionEdit = PlaceDetailFragmentDirections.actionNavPlaceDetailToNavPlaceEdit(
-                    placeWithPhotos
+                    placeDetailViewModel.placeWithPhotos
                 )
                 findNavController().navigate(actionEdit)
             }
@@ -73,7 +75,7 @@ class PlaceDetailFragment : Fragment() {
 
     private fun initSlider(binding: PlaceDetailFragmentBinding) {
         //todo wyswietlać grid na dole z możliwością usuwania zdjeć
-        val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
+        val sliderAdapter = AdapterImageSlider(requireActivity(), placeDetailViewModel.placeWithPhotos.photos)
         binding.placeDetailPager.adapter = sliderAdapter
         sliderAdapter.startAutoSlider(sliderAdapter.count, binding.placeDetailPager)
     }

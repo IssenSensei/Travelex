@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.database.TravelexDatabase
@@ -15,8 +16,9 @@ class PlaceEditViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
     private val photoModelDao = TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
+    val photos = mutableListOf<PhotoModel>()
 
-    fun insert(placeWithPhotos: PlaceWithPhotos) {
+    fun update(placeWithPhotos: PlaceWithPhotos) {
         viewModelScope.launch(Dispatchers.IO){
             placeDao.update(placeWithPhotos.place)
         }

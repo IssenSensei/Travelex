@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.travelex.R
+import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceEditFragmentBinding
 import com.example.travelex.misc.AdapterImageSlider
+import com.example.travelex.placeDetail.PlaceDetailFragmentDirections
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -18,6 +20,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.place_create_fragment.*
 import kotlinx.android.synthetic.main.place_edit_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 class PlaceEditFragment : Fragment() {
 
@@ -122,8 +127,22 @@ class PlaceEditFragment : Fragment() {
         placeWithPhotos.place.location = place_edit_location.text.toString()
         placeWithPhotos.place.rating = place_edit_rating.rating
         placeWithPhotos.place.comment = place_edit_comment.text.toString()
-        placeEditViewModel.insert(placeWithPhotos)
-        findNavController().popBackStack()
+        placeEditViewModel.update(
+            PlaceWithPhotos(
+                Place(
+                    placeWithPhotos.place.id,
+                    placeWithPhotos.place.name,
+                    placeWithPhotos.place.description,
+                    placeWithPhotos.place.location,
+                    placeWithPhotos.place.rating,
+                    placeWithPhotos.place.comment
+                ),
+                mutableListOf()
+            )
+        )
+        val actionDetail = PlaceEditFragmentDirections.actionNavPlaceEditToNavPlaceDetail(
+            placeWithPhotos
+        )
+        findNavController().navigate(actionDetail)
     }
-
 }
