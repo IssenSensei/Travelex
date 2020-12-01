@@ -65,10 +65,13 @@ class PlaceCreateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //todo fix rating update
-
         initPhoto()
         initMap()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateSlider()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -181,24 +184,32 @@ class PlaceCreateFragment : Fragment() {
         when (requestCode) {
             CAMERA_CODE -> if (resultCode == Activity.RESULT_OK) {
                 placeCreateViewModel.savePhoto(currentPhotoPath)
-                addImageToSlider()
+                updateSlider()
             }
             GALLERY_CODE -> if (resultCode == Activity.RESULT_OK) {
                 val image: Uri? = data?.data
                 if (image != null) {
                     placeCreateViewModel.savePhoto(image.toString())
-                    addImageToSlider()
+                    updateSlider()
                 }
             }
         }
     }
 
-    private fun addImageToSlider() {
+    private fun updateSlider() {
+        Toast.makeText(requireContext(), placeCreateViewModel.photos.size.toString() + "add", Toast.LENGTH_SHORT).show()
         if (place_create_pager.isVisible) {
             sliderAdapter.stopAutoSlider()
             sliderAdapter.notifyDataSetChanged()
             sliderAdapter.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
         } else {
+            startSlider()
+        }
+    }
+
+    private fun startSlider(){
+        Toast.makeText(requireContext(), placeCreateViewModel.photos.size.toString() + "start", Toast.LENGTH_SHORT).show()
+        if (placeCreateViewModel.photos.size > 0) {
             place_create_pager.visibility = View.VISIBLE
             place_create_pager_placeholder.visibility = View.GONE
             sliderAdapter = AdapterImageSlider(requireActivity(), placeCreateViewModel.photos)

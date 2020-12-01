@@ -16,11 +16,15 @@ class PlaceEditViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
     private val photoModelDao = TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
-    val photos = mutableListOf<PhotoModel>()
+    var photos = mutableListOf<PhotoModel>()
 
     fun update(placeWithPhotos: PlaceWithPhotos) {
         viewModelScope.launch(Dispatchers.IO){
             placeDao.update(placeWithPhotos.place)
+            photos.forEach {
+                it.placeId = placeWithPhotos.place.id
+            }
+            photoModelDao.insertNotExisting(photos)
         }
     }
 
@@ -29,5 +33,9 @@ class PlaceEditViewModel(application: Application) : AndroidViewModel(applicatio
             placeDao.delete(placeWithPhotos.place)
             photoModelDao.delete(placeWithPhotos.photos)
         }
+    }
+
+    fun savePhoto(photo: String) {
+        photos.add(PhotoModel(0, 0, photo))
     }
 }

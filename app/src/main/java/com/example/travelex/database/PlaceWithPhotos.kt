@@ -10,6 +10,6 @@ data class PlaceWithPhotos(
         parentColumn = "id",
         entityColumn = "placeId"
     )
-    val photos: List<PhotoModel>,
+    val photos: MutableList<PhotoModel>,
 
 ) : Serializable
