@@ -54,6 +54,8 @@ class PlaceDetailFragment : Fragment() {
             childFragmentManager.findFragmentById(R.id.place_detail_map) as SupportMapFragment?
         mapFragment!!.getMapAsync(callback)
 
+        mapFragment.requireView().isClickable = false
+
         //todo wyswietlać grid na dole z możliwością usuwania zdjeć
         val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
         binding.placeDetailPager.adapter = sliderAdapter

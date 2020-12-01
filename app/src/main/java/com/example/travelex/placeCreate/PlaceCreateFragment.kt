@@ -93,6 +93,7 @@ class PlaceCreateFragment : Fragment() {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.place_create_map) as SupportMapFragment?
         mapFragment!!.getMapAsync(callback)
+        mapFragment.requireView().isClickable = false
 
         place_create_map_button.setOnClickListener {
             val bundle = bundleOf("selectedPosition" to selectedPosition)
