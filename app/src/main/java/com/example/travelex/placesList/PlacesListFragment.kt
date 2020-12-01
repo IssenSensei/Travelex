@@ -1,12 +1,11 @@
 package com.example.travelex.placesList
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.travelex.R
@@ -23,15 +22,15 @@ class PlacesListFragment : Fragment(), PlacesListListener {
     ): View? {
         placesListViewModel = ViewModelProvider(this).get(PlacesListViewModel::class.java)
 
-
         val root = inflater.inflate(R.layout.places_list_fragment, container, false)
         val adapter = PlaceWithPhotosRecyclerViewAdapter(this, requireActivity())
 
-        placesListViewModel.allTasks.observe(viewLifecycleOwner, Observer {
+        placesListViewModel.allTasks.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it)
             }
         })
+
         root.places_recycler_list.adapter = adapter
         root.places_recycler_list_fab.setOnClickListener(
             Navigation.createNavigateOnClickListener(
@@ -40,10 +39,12 @@ class PlacesListFragment : Fragment(), PlacesListListener {
             )
         )
 
-        return root    }
+        return root
+    }
 
     override fun onPlaceSelected(placeWithPhotos: PlaceWithPhotos) {
-        val actionDetail = PlacesListFragmentDirections.actionNavPlacesListToNavPlaceDetail(placeWithPhotos)
+        val actionDetail =
+            PlacesListFragmentDirections.actionNavPlacesListToNavPlaceDetail(placeWithPhotos)
         findNavController().navigate(actionDetail)
     }
 

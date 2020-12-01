@@ -42,52 +42,6 @@ class MapsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         setMapClick(googleMap)
     }
 
-    @AfterPermissionGranted(RC_LOCATION_FINE_AND_COARSE)
-    private fun getUserLocationPermissions() {
-        if (EasyPermissions.hasPermissions(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        ) {
-            initializeMapWithUserLocation()
-        } else {
-            EasyPermissions.requestPermissions(
-                this,
-                "",
-                RC_LOCATION_FINE_AND_COARSE,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun initializeMapWithUserLocation() {
-        googleMap.isMyLocationEnabled = true
-        val fusedLocationClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            location?.let { it: Location ->
-                val position = LatLng(it.latitude, it.longitude)
-                googleMap.addMarker(MarkerOptions().position(position).title("Current mark"))
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16f))
-                mapsViewModel.selectedPosition = position
-            } ?: Toast.makeText(
-                requireContext(),
-                "Problem setting localization!",
-                Toast.LENGTH_SHORT
-            ).show()
-
-        }.addOnFailureListener {
-            Toast.makeText(
-                requireContext(),
-                "Problem getting user localization!",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -161,6 +115,52 @@ class MapsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 16f))
             marker.showInfoWindow()
             mapsViewModel.selectedPosition = it
+        }
+    }
+
+    @AfterPermissionGranted(RC_LOCATION_FINE_AND_COARSE)
+    private fun getUserLocationPermissions() {
+        if (EasyPermissions.hasPermissions(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
+            initializeMapWithUserLocation()
+        } else {
+            EasyPermissions.requestPermissions(
+                this,
+                "",
+                RC_LOCATION_FINE_AND_COARSE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initializeMapWithUserLocation() {
+        googleMap.isMyLocationEnabled = true
+        val fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            location?.let { it: Location ->
+                val position = LatLng(it.latitude, it.longitude)
+                googleMap.addMarker(MarkerOptions().position(position).title("Current mark"))
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16f))
+                mapsViewModel.selectedPosition = position
+            } ?: Toast.makeText(
+                requireContext(),
+                "Problem setting localization!",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }.addOnFailureListener {
+            Toast.makeText(
+                requireContext(),
+                "Problem getting user localization!",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

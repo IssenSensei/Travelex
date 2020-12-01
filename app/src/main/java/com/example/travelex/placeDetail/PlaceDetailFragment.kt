@@ -43,26 +43,15 @@ class PlaceDetailFragment : Fragment() {
     ): View? {
 
         val binding = PlaceDetailFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-
         val safeArgs: PlaceDetailFragmentArgs by navArgs()
         placeWithPhotos = safeArgs.placeWithPhotos
-
         binding.placeWithPhotos = placeWithPhotos
 
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.place_detail_map) as SupportMapFragment?
-        mapFragment!!.getMapAsync(callback)
-
-        mapFragment.requireView().isClickable = false
-
-        //todo wyswietlać grid na dole z możliwością usuwania zdjeć
-        val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
-        binding.placeDetailPager.adapter = sliderAdapter
-        sliderAdapter.startAutoSlider(sliderAdapter.count, binding.placeDetailPager)
+        initMap(binding)
+        initSlider(binding)
 
         binding.executePendingBindings()
-        return view
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,5 +69,20 @@ class PlaceDetailFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initSlider(binding: PlaceDetailFragmentBinding) {
+        //todo wyswietlać grid na dole z możliwością usuwania zdjeć
+        val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
+        binding.placeDetailPager.adapter = sliderAdapter
+        sliderAdapter.startAutoSlider(sliderAdapter.count, binding.placeDetailPager)
+    }
+
+    private fun initMap(binding: PlaceDetailFragmentBinding) {
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.place_detail_map) as SupportMapFragment?
+        mapFragment!!.getMapAsync(callback)
+
+        mapFragment.requireView().isClickable = false
     }
 }

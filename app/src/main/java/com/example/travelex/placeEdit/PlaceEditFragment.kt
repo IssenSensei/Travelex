@@ -28,7 +28,9 @@ class PlaceEditFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
         val zoom = 16f
 
-        googleMap.addMarker(MarkerOptions().position(selectedPosition).title(placeWithPhotos.place.name))
+        googleMap.addMarker(
+            MarkerOptions().position(selectedPosition).title(placeWithPhotos.place.name)
+        )
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPosition, zoom))
 
         googleMap.uiSettings.isMapToolbarEnabled = false
@@ -46,45 +48,15 @@ class PlaceEditFragment : Fragment() {
     ): View? {
         placeEditViewModel = ViewModelProvider(this).get(PlaceEditViewModel::class.java)
         val binding = PlaceEditFragmentBinding.inflate(inflater, container, false)
-
-        val view = binding.root
-
         val safeArgs: PlaceEditFragmentArgs by navArgs()
         placeWithPhotos = safeArgs.placeWithPhotos
-
-        val latlong = placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
-        selectedPosition = LatLng(latlong[0].toDouble(), latlong[1].toDouble())
-
         binding.placeWithPhotos = placeWithPhotos
 
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.place_edit_map) as SupportMapFragment?
-        mapFragment!!.getMapAsync(callback)
+        initMap(binding)
+        initSlider(binding)
 
-
-        binding.placeEditMapButton.setOnClickListener {
-            val latlong = placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
-            val bundle = bundleOf("selectedPosition" to LatLng(latlong[0].toDouble(), latlong[1].toDouble()))
-            findNavController().navigate(R.id.nav_maps, bundle)
-        }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>("location")
-            ?.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    place_edit_location.setText(it?.latitude.toString() + ", " + it?.longitude.toString())
-                    mapFragment.requireView().visibility = View.VISIBLE
-                    selectedPosition = it
-                }
-            }
-
-        //todo pobierać zdjęcia z viewmodelu bo te mogą się zmienić
-        //todo wyswietlać grid na dole z możliwością usuwania zdjeć
-        val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
-        binding.placeEditPager.adapter = sliderAdapter
-        sliderAdapter.startAutoSlider(placeWithPhotos.photos.size, binding.placeEditPager)
         binding.executePendingBindings()
-
-        return view
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -102,6 +74,41 @@ class PlaceEditFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initSlider(binding: PlaceEditFragmentBinding) {
+
+        //todo pobierać zdjęcia z viewmodelu bo te mogą się zmienić
+        //todo wyswietlać grid na dole z możliwością usuwania zdjeć
+        val sliderAdapter = AdapterImageSlider(requireActivity(), placeWithPhotos.photos)
+        binding.placeEditPager.adapter = sliderAdapter
+        sliderAdapter.startAutoSlider(placeWithPhotos.photos.size, binding.placeEditPager)
+    }
+
+    private fun initMap(binding: PlaceEditFragmentBinding) {
+        val latlong = placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
+        selectedPosition = LatLng(latlong[0].toDouble(), latlong[1].toDouble())
+
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.place_edit_map) as SupportMapFragment?
+        mapFragment!!.getMapAsync(callback)
+
+
+        binding.placeEditMapButton.setOnClickListener {
+            val latlong = placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
+            val bundle =
+                bundleOf("selectedPosition" to LatLng(latlong[0].toDouble(), latlong[1].toDouble()))
+            findNavController().navigate(R.id.nav_maps, bundle)
+        }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>("location")
+            ?.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    place_edit_location.setText(it?.latitude.toString() + ", " + it?.longitude.toString())
+                    mapFragment.requireView().visibility = View.VISIBLE
+                    selectedPosition = it
+                }
+            }
     }
 
     private fun deletePlace() {

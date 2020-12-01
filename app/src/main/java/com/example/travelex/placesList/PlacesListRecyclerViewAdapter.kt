@@ -59,6 +59,6 @@ class PlaceWithPhotosListDiffCallback : DiffUtil.ItemCallback<PlaceWithPhotos>()
 }
 
 interface PlacesListListener {
-    fun onPlaceSelected(place: PlaceWithPhotos)
+    fun onPlaceSelected(placeWithPhotos: PlaceWithPhotos)
 }
 

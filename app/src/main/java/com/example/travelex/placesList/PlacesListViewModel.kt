@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class PlacesListViewModel(application: Application) : AndroidViewModel(application) {
 
     val allTasks: LiveData<List<PlaceWithPhotos>>
-    val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
+    private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
 
     init {
         allTasks = placeDao.getAllPlaces()

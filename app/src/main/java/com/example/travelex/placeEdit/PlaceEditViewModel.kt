@@ -24,7 +24,6 @@ class PlaceEditViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun delete(placeWithPhotos: PlaceWithPhotos) {
         viewModelScope.launch(Dispatchers.IO){
-
             placeDao.delete(placeWithPhotos.place)
             photoModelDao.delete(placeWithPhotos.photos)
         }

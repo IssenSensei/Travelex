@@ -30,7 +30,7 @@ abstract class TravelexDatabase : RoomDatabase() {
                                 1,
                                 "Zhangye Danxia Geopark, China",
                                 "Geology lovers and avid Instagrammers alike will be drawn to the otherworldly hues of the \"Rainbow Mountains.\" The colors were formed by the layering of sedimentary mineral deposits over millions of years, but it's hard to look at the flowing reds, yellows, and oranges and not feel like you're witnessing magic.",
-                                "location1",
+                                "51.22229105088706, 22.606841115528717",
                                 5f,
                                 "Było super, polecam serdecznie <3"
                             ),
@@ -38,7 +38,7 @@ abstract class TravelexDatabase : RoomDatabase() {
                                 2,
                                 "Venice, Italy",
                                 "If traversing the canals with a be-striped gondolier sounds unbearably touristy, stick to the sidewalks and spectacular arched bridges to get your fill of this truly unique, wildly romantic floating city.",
-                                "location2",
+                                "51.23720139958699, 22.57654678717597",
                                 4.8f,
                                 "Ekstra, tylko zbyt wielu ludzi"
                             ),
@@ -46,7 +46,7 @@ abstract class TravelexDatabase : RoomDatabase() {
                                 3,
                                 "Banff National Park, Canada",
                                 "The glacial lakes in Canada's first national park have some of the bluest water you've ever seen. Even if you're not particularly outdoorsy, you can still admire the views from one of the cozy and luxurious lakeside lodges throughout the park, like the Fairmont Chateau Lake Louise.",
-                                "location3",
+                                "51.23152440824398, 22.568608979745317",
                                 2.9f,
                                 "Padał deszcz więc słaby wyjazd"
                             ),

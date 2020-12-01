@@ -1,17 +1,14 @@
 package com.example.travelex.placeCreate
 
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
 import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -29,6 +26,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.place_create_fragment.*
 import java.io.File
 import java.io.IOException
+import java.text.DateFormat
+import java.util.*
 
 
 class PlaceCreateFragment : Fragment() {
@@ -39,6 +38,7 @@ class PlaceCreateFragment : Fragment() {
     private lateinit var placeCreateViewModel: PlaceCreateViewModel
     private var rotate = false
     private var selectedPosition: LatLng? = null
+    private lateinit var currentPhotoPath: String
 
     private val callback = OnMapReadyCallback { googleMap ->
         val zoom = 16f
@@ -59,15 +59,33 @@ class PlaceCreateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.place_create_fragment, container, false)
         placeCreateViewModel = ViewModelProvider(this).get(PlaceCreateViewModel::class.java)
-
-        return root
+        return inflater.inflate(R.layout.place_create_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //todo fix rating update
 
+        initPhoto()
+        initMap()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_save, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_save -> {
+                savePlace()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun initPhoto() {
         ViewAnimation.initShowOut(place_create_gallery_container)
         ViewAnimation.initShowOut(place_create_camera_container)
         back_drop.visibility = View.GONE
@@ -82,14 +100,33 @@ class PlaceCreateFragment : Fragment() {
         }
 
         place_create_fab_camera.setOnClickListener {
-            val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(takePicture, CAMERA_CODE)
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(requireContext().packageManager)?.also {
+                    val photoFile: File? = try {
+                        createImageFile()
+                    } catch (ex: IOException) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Problem przy tworzeniu pliku",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        null
+                    }
+                    photoFile?.also {
+                        val photoURI: Uri = FileProvider.getUriForFile(
+                            requireContext(),
+                            "com.example.android.fileprovider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                        startActivityForResult(takePictureIntent, CAMERA_CODE)
+                    }
+                }
+            }
         }
+    }
 
-        //todo places api
-        //todo picture quality
-        //todo rating update
-
+    private fun initMap() {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.place_create_map) as SupportMapFragment?
         mapFragment!!.getMapAsync(callback)
@@ -110,20 +147,6 @@ class PlaceCreateFragment : Fragment() {
                     selectedPosition = it
                 }
             }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_save, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_save -> {
-                savePlace()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun toggleFabMode(v: View) {
@@ -157,54 +180,8 @@ class PlaceCreateFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             CAMERA_CODE -> if (resultCode == Activity.RESULT_OK) {
-                val extras = data?.extras
-                val image = extras!!["data"] as Bitmap?
-                if (image != null) {
-                    val relativeLocation =
-                        Environment.DIRECTORY_PICTURES + File.separator + "Travelex"
-
-                    val contentValues = ContentValues().apply {
-                        put(
-                            MediaStore.Images.ImageColumns.DISPLAY_NAME,
-                            System.currentTimeMillis().toString()
-                        )
-                        put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { //this one
-                            put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation)
-                        }
-                    }
-
-                    val resolver = requireActivity().contentResolver
-                    val uri = resolver.insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        contentValues
-                    )
-                    try {
-
-                        uri?.let { uri ->
-                            val stream = resolver.openOutputStream(uri)
-
-                            stream?.let { stream ->
-                                if (!image.compress(Bitmap.CompressFormat.JPEG, 100, stream)) {
-                                    throw IOException("Failed to save bitmap.")
-                                }
-                            } ?: throw IOException("Failed to get output stream.")
-
-                        } ?: throw IOException("Failed to create new MediaStore record")
-
-                    } catch (e: IOException) {
-                        if (uri != null) {
-                            resolver.delete(uri, null, null)
-                        }
-                        throw IOException(e)
-                    } finally {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-                            contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
-                        placeCreateViewModel.savePhoto(uri.toString())
-                        addImageToSlider()
-                    }
-
-                }
+                placeCreateViewModel.savePhoto(currentPhotoPath)
+                addImageToSlider()
             }
             GALLERY_CODE -> if (resultCode == Activity.RESULT_OK) {
                 val image: Uri? = data?.data
@@ -230,5 +207,18 @@ class PlaceCreateFragment : Fragment() {
         }
     }
 
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val timeStamp: String = DateFormat.getDateTimeInstance().format(Date())
+        val storageDir: File =
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES + File.separator + "Travelex")!!
+        return File.createTempFile(
+            "JPEG_${timeStamp}_",
+            ".jpg",
+            storageDir
+        ).apply {
+            currentPhotoPath = absolutePath
+        }
+    }
 
 }
