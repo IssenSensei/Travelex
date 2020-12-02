@@ -58,7 +58,7 @@ class PlaceDetailFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
-        inflater.inflate(R.menu.menu_save, menu)
+        inflater.inflate(R.menu.menu_details, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

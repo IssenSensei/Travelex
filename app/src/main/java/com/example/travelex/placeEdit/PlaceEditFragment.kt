@@ -13,6 +13,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.travelex.R
@@ -32,6 +33,7 @@ import java.io.File
 import java.io.IOException
 import java.text.DateFormat
 import java.util.*
+import kotlin.jvm.Throws
 
 //todo wyswietlać grid na dole z możliwością usuwania zdjeć
 class PlaceEditFragment : Fragment() {
@@ -245,11 +247,6 @@ class PlaceEditFragment : Fragment() {
     }
 
     private fun updateSlider() {
-        Toast.makeText(
-            requireContext(),
-            placeEditViewModel.photos.size.toString() + "add",
-            Toast.LENGTH_SHORT
-        ).show()
         if (place_edit_pager.isVisible) {
             sliderAdapter.stopAutoSlider()
             sliderAdapter.notifyDataSetChanged()
@@ -260,11 +257,6 @@ class PlaceEditFragment : Fragment() {
     }
 
     private fun startSlider() {
-        Toast.makeText(
-            requireContext(),
-            placeEditViewModel.photos.size.toString() + "start",
-            Toast.LENGTH_SHORT
-        ).show()
         if (placeEditViewModel.photos.size > 0) {
             place_edit_pager.visibility = View.VISIBLE
             place_edit_pager_placeholder.visibility = View.GONE

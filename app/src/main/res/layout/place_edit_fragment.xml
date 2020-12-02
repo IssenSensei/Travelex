@@ -70,7 +70,8 @@
                         android:layout_marginTop="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
                         android:tint="@color/grey_60"
-                        app:srcCompat="@drawable/ic_event" />
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/label_black" />
 
                     <View
                         android:layout_width="@dimen/spacing_large"
@@ -112,7 +113,8 @@
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
                             android:tint="@color/grey_60"
-                            app:srcCompat="@drawable/ic_event" />
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/description_black" />
 
                         <View
                             android:layout_width="@dimen/spacing_large"
@@ -157,7 +159,8 @@
                             android:layout_marginTop="@dimen/spacing_mlarge"
                             android:background="@android:color/transparent"
                             android:tint="@color/grey_60"
-                            app:srcCompat="@drawable/ic_event" />
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/location_on_black" />
 
                         <View
                             android:layout_width="@dimen/spacing_large"
@@ -216,7 +219,8 @@
                         android:layout_marginTop="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
                         android:tint="@color/grey_60"
-                        app:srcCompat="@drawable/ic_event" />
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/stars_black" />
 
                     <View
                         android:layout_width="@dimen/spacing_large"
@@ -251,7 +255,8 @@
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:tint="@color/grey_60"
-                        app:srcCompat="@drawable/ic_event" />
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/speaker_notes_black" />
 
                     <View
                         android:layout_width="@dimen/spacing_large"
@@ -290,7 +295,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_large"
                 android:clickable="true"
-                android:src="@drawable/ic_add"
+                android:scaleType="centerCrop"
+                android:src="@drawable/add_a_photo_white"
                 android:tint="@android:color/white"
                 app:backgroundTint="@color/colorAccentDark"
                 app:fabSize="normal"
@@ -346,7 +352,8 @@
                     app:layout_constraintStart_toEndOf="@id/place_edit_gallery_card"
                     app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@android:color/black"
-                    app:srcCompat="@drawable/ic_event" />
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/collections_black" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -396,7 +403,8 @@
                     app:layout_constraintStart_toEndOf="@id/place_edit_camera_card"
                     app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@android:color/black"
-                    app:srcCompat="@drawable/ic_event" />
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/camera_alt_black" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

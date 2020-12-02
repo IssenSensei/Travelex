@@ -13,6 +13,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.travelex.R
 import com.example.travelex.database.Place
@@ -28,6 +29,7 @@ import java.io.File
 import java.io.IOException
 import java.text.DateFormat
 import java.util.*
+import kotlin.jvm.Throws
 
 
 class PlaceCreateFragment : Fragment() {
@@ -197,7 +199,6 @@ class PlaceCreateFragment : Fragment() {
     }
 
     private fun updateSlider() {
-        Toast.makeText(requireContext(), placeCreateViewModel.photos.size.toString() + "add", Toast.LENGTH_SHORT).show()
         if (place_create_pager.isVisible) {
             sliderAdapter.stopAutoSlider()
             sliderAdapter.notifyDataSetChanged()
@@ -208,7 +209,6 @@ class PlaceCreateFragment : Fragment() {
     }
 
     private fun startSlider(){
-        Toast.makeText(requireContext(), placeCreateViewModel.photos.size.toString() + "start", Toast.LENGTH_SHORT).show()
         if (placeCreateViewModel.photos.size > 0) {
             place_create_pager.visibility = View.VISIBLE
             place_create_pager_placeholder.visibility = View.GONE
