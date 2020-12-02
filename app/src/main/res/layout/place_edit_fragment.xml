@@ -65,12 +65,48 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/imageButton2"
                         android:layout_width="@dimen/spacing_mxlarge"
                         android:layout_height="@dimen/spacing_mxlarge"
                         android:layout_marginTop="@dimen/spacing_mlarge"
                         android:background="@android:color/transparent"
-                        android:tint="@color/grey_60"
                         android:scaleType="centerCrop"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/stars_black" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="match_parent" />
+
+                    <RatingBar
+                        android:id="@+id/place_edit_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:isIndicator="false"
+                        android:numStars="5"
+                        android:progressTint="@color/yellow_800"
+                        android:rating="@{placeWithPhotos.place.rating}"
+                        android:secondaryProgressTint="@android:color/transparent"
+                        android:stepSize="0.1" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="@dimen/spacing_mxlarge"
+                        android:layout_height="@dimen/spacing_mxlarge"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:tint="@color/grey_60"
                         app:srcCompat="@drawable/label_black" />
 
                     <View
@@ -112,8 +148,8 @@
                             android:layout_height="@dimen/spacing_mxlarge"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
-                            android:tint="@color/grey_60"
                             android:scaleType="centerCrop"
+                            android:tint="@color/grey_60"
                             app:srcCompat="@drawable/description_black" />
 
                         <View
@@ -146,107 +182,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:layout_width="@dimen/spacing_mxlarge"
-                            android:layout_height="@dimen/spacing_mxlarge"
-                            android:layout_marginTop="@dimen/spacing_mlarge"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_60"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/location_on_black" />
-
-                        <View
-                            android:layout_width="@dimen/spacing_large"
-                            android:layout_height="match_parent" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="6"
-                            android:textColorHint="@color/grey_40">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/place_edit_location"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@{placeWithPhotos.place.location}" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <Button
-                            android:id="@+id/place_edit_map_button"
-                            style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="2"
-                            android:text="Map" />
-
-                    </LinearLayout>
-
-                    <fragment xmlns:tools="http://schemas.android.com/tools"
-                        android:id="@+id/place_edit_map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_marginTop="@dimen/spacing_medium"
-                        app:cameraZoom="17"
-                        app:liteMode="true"
-                        tools:context=".map.MapsFragment" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/imageButton2"
-                        android:layout_width="@dimen/spacing_mxlarge"
-                        android:layout_height="@dimen/spacing_mxlarge"
-                        android:layout_marginTop="@dimen/spacing_mlarge"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/grey_60"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/stars_black" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_large"
-                        android:layout_height="match_parent" />
-
-                    <RatingBar
-                        android:id="@+id/place_edit_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:isIndicator="false"
-                        android:numStars="5"
-                        android:progressTint="@color/yellow_800"
-                        android:rating="@{placeWithPhotos.place.rating}"
-                        android:secondaryProgressTint="@android:color/transparent"
-                        android:stepSize="0.1" />
-                </LinearLayout>
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_large" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <ImageButton
@@ -254,8 +189,8 @@
                         android:layout_height="@dimen/spacing_mxlarge"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:tint="@color/grey_60"
                         android:scaleType="centerCrop"
+                        android:tint="@color/grey_60"
                         app:srcCompat="@drawable/speaker_notes_black" />
 
                     <View
@@ -276,6 +211,75 @@
                             android:text="@{placeWithPhotos.place.comment}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="@dimen/spacing_mxlarge"
+                            android:layout_height="@dimen/spacing_mxlarge"
+                            android:layout_marginTop="@dimen/spacing_mlarge"
+                            android:background="@android:color/transparent"
+                            android:scaleType="centerCrop"
+                            android:tint="@color/grey_60"
+                            app:srcCompat="@drawable/location_on_black" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="match_parent" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="6"
+                            android:textColorHint="@color/grey_40">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/place_edit_location"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@{placeWithPhotos.place.location}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageButton
+                            android:id="@+id/place_edit_map_button"
+                            android:tint="@color/colorAccentDark"
+                            android:background="@android:color/transparent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:scaleY="0.8"
+                            android:scaleX="0.8"
+                            android:scaleType="centerCrop"
+                            android:padding="@dimen/spacing_small"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_world"/>
+
+                    </LinearLayout>
+
+                    <fragment xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/place_edit_map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        app:cameraZoom="17"
+                        app:liteMode="true"
+                        tools:context=".map.MapsFragment" />
 
                 </LinearLayout>
 
@@ -344,6 +348,7 @@
                     android:layout_marginStart="@dimen/spacing_large"
                     android:layout_marginEnd="@dimen/spacing_mlarge"
                     android:clickable="true"
+                    android:scaleType="centerCrop"
                     android:tint="@color/grey_80"
                     app:backgroundTint="@android:color/white"
                     app:fabSize="mini"
@@ -352,7 +357,6 @@
                     app:layout_constraintStart_toEndOf="@id/place_edit_gallery_card"
                     app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@android:color/black"
-                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/collections_black" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -395,6 +399,7 @@
                     android:layout_marginStart="@dimen/spacing_large"
                     android:layout_marginEnd="@dimen/spacing_mlarge"
                     android:clickable="true"
+                    android:scaleType="centerCrop"
                     android:tint="@color/grey_80"
                     app:backgroundTint="@android:color/white"
                     app:fabSize="mini"
@@ -403,7 +408,6 @@
                     app:layout_constraintStart_toEndOf="@id/place_edit_camera_card"
                     app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@android:color/black"
-                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/camera_alt_black" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
