@@ -2,6 +2,7 @@ package com.example.travelex.placeCreate
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
@@ -16,6 +17,7 @@ class PlaceCreateViewModel(application: Application) : AndroidViewModel(applicat
     private val photoModelDao =
         TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
     val photos = mutableListOf<PhotoModel>()
+    val photosLive = MutableLiveData<List<PhotoModel>>()
     lateinit var location: String
 
     fun insert(place: Place) {
@@ -30,5 +32,11 @@ class PlaceCreateViewModel(application: Application) : AndroidViewModel(applicat
 
     fun savePhoto(photo: String) {
         photos.add(PhotoModel(0, 0, photo))
+        photosLive.value = photos
+    }
+
+    fun removePhoto(photoModel: PhotoModel) {
+        photos.remove(photoModel)
+        photosLive.value = photos
     }
 }

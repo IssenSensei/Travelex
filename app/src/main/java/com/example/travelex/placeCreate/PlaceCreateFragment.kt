@@ -15,12 +15,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.travelex.R
+import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
-import com.example.travelex.misc.AdapterImageSlider
-import com.example.travelex.misc.ViewAnimation
-import com.example.travelex.misc.getAddress
-import com.example.travelex.misc.latLngToString
+import com.example.travelex.misc.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -34,7 +33,7 @@ import java.util.*
 import kotlin.jvm.Throws
 
 
-class PlaceCreateFragment : Fragment() {
+class PlaceCreateFragment : Fragment(), PhotoGridListener {
 
     private val CAMERA_CODE = 0
     private val GALLERY_CODE = 1
@@ -43,6 +42,7 @@ class PlaceCreateFragment : Fragment() {
     private var rotate = false
     private var selectedPosition: LatLng? = null
     private lateinit var currentPhotoPath: String
+    private lateinit var photoGridAdapter: PhotoGridAdapter
 
     private val callback = OnMapReadyCallback { googleMap ->
         val zoom = 16f
@@ -71,6 +71,7 @@ class PlaceCreateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initPhoto()
         initMap()
+        initGrid()
     }
 
     override fun onResume() {
@@ -157,6 +158,18 @@ class PlaceCreateFragment : Fragment() {
             }
     }
 
+    private fun initGrid() {
+        photoGridAdapter = PhotoGridAdapter(this, true)
+        place_create_photo_grid.adapter = photoGridAdapter
+        placeCreateViewModel.photosLive.observe(viewLifecycleOwner, {
+            it.let {
+                photoGridAdapter.submitList(it)
+            }
+        })
+        val manager = GridLayoutManager(activity, 3)
+        place_create_photo_grid.layoutManager = manager
+    }
+
     private fun toggleFabMode(v: View) {
         rotate = ViewAnimation.rotateFab(v, !rotate)
         if (rotate) {
@@ -211,7 +224,7 @@ class PlaceCreateFragment : Fragment() {
         }
     }
 
-    private fun startSlider(){
+    private fun startSlider() {
         if (placeCreateViewModel.photos.size > 0) {
             place_create_pager.visibility = View.VISIBLE
             place_create_pager_placeholder.visibility = View.GONE
@@ -233,6 +246,26 @@ class PlaceCreateFragment : Fragment() {
         ).apply {
             currentPhotoPath = absolutePath
         }
+    }
+
+    override fun onDeleteClicked(photoModel: PhotoModel) {
+        placeCreateViewModel.removePhoto(photoModel)
+
+        //todo remove this call after detecting error with views not vanishing
+        photoGridAdapter.notifyDataSetChanged()
+        if (placeCreateViewModel.photos.size == 0) {
+            place_create_pager.visibility = View.GONE
+            place_create_pager_placeholder.visibility = View.VISIBLE
+        }
+        updateSlider()
+    }
+
+    override fun onPhotoClicked(photoModel: PhotoModel) {
+        Toast.makeText(
+            requireContext(),
+            "photo" + photoModel.photoID.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 }

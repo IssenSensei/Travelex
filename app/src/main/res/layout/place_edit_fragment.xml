@@ -179,6 +179,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_large" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/place_edit_photo_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

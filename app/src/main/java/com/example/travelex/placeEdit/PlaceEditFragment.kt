@@ -8,6 +8,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -16,27 +17,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.travelex.R
+import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceEditFragmentBinding
-import com.example.travelex.misc.AdapterImageSlider
-import com.example.travelex.misc.ViewAnimation
-import com.example.travelex.misc.getAddress
-import com.example.travelex.misc.latLngToString
+import com.example.travelex.misc.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.place_create_fragment.*
 import kotlinx.android.synthetic.main.place_edit_fragment.*
+import kotlinx.android.synthetic.main.place_edit_fragment.back_drop
 import java.io.File
 import java.io.IOException
 import java.text.DateFormat
 import java.util.*
 
-//todo wyswietlać grid na dole z możliwością usuwania zdjeć
-class PlaceEditFragment : Fragment() {
+class PlaceEditFragment : Fragment(), PhotoGridListener {
 
     private lateinit var placeEditViewModel: PlaceEditViewModel
     private lateinit var placeWithPhotos: PlaceWithPhotos
@@ -46,6 +47,7 @@ class PlaceEditFragment : Fragment() {
     private val GALLERY_CODE = 1
     private var rotate = false
     private lateinit var currentPhotoPath: String
+    private lateinit var photoGridAdapter: PhotoGridAdapter
 
     private val callback = OnMapReadyCallback { googleMap ->
         val zoom = 16f
@@ -73,11 +75,13 @@ class PlaceEditFragment : Fragment() {
         val safeArgs: PlaceEditFragmentArgs by navArgs()
         placeWithPhotos = safeArgs.placeWithPhotos
         placeEditViewModel.photos.addAll(placeWithPhotos.photos)
+        placeEditViewModel.location = placeWithPhotos.place.latLng
         binding.placeWithPhotos = placeWithPhotos
         binding.executePendingBindings()
 
         initPhoto(binding)
         initMap(binding)
+        initGrid(binding)
         return binding.root
     }
 
@@ -169,6 +173,23 @@ class PlaceEditFragment : Fragment() {
             }
         }
     }
+
+    private fun initGrid(binding: PlaceEditFragmentBinding) {
+        photoGridAdapter = PhotoGridAdapter(this, true)
+        binding.placeEditPhotoGrid.adapter = photoGridAdapter
+
+        //todo fix double submit
+        photoGridAdapter.submitList(placeEditViewModel.photos)
+
+        placeEditViewModel.photosLive.observe(viewLifecycleOwner, {
+            it.let {
+                photoGridAdapter.submitList(it)
+            }
+        })
+        val manager = GridLayoutManager(activity, 3)
+        binding.placeEditPhotoGrid.layoutManager = manager
+    }
+
 
     private fun deletePlace() {
         placeEditViewModel.delete(placeWithPhotos)
@@ -265,6 +286,25 @@ class PlaceEditFragment : Fragment() {
             place_edit_pager.adapter = sliderAdapter
             sliderAdapter.startAutoSlider(placeEditViewModel.photos.size, place_edit_pager)
         }
+    }
+
+    override fun onDeleteClicked(photoModel: PhotoModel) {
+        placeEditViewModel.removePhoto(photoModel)
+        //todo remove this call after detecting error with views not vanishing
+        photoGridAdapter.notifyDataSetChanged()
+        if (placeEditViewModel.photos.size == 0) {
+            place_edit_pager.visibility = View.GONE
+            place_edit_pager_placeholder.visibility = View.VISIBLE
+        }
+        updateSlider()
+    }
+
+    override fun onPhotoClicked(photoModel: PhotoModel) {
+        Toast.makeText(
+            requireContext(),
+            "photo" + photoModel.photoID.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 }

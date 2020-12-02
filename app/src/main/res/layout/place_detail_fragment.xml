@@ -191,6 +191,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_large" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/place_detail_photo_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/spacing_large"
+                    android:layout_marginRight="@dimen/spacing_large"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_large" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -217,10 +229,10 @@
                             android:textColor="@color/grey_80" />
 
                         <TextView
+                            location="@{placeWithPhotos.place.latLng}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            app:location="@{placeWithPhotos.place.latLng}"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_40" />
 

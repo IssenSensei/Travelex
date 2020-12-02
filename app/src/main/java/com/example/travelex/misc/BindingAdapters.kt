@@ -22,14 +22,25 @@ fun setPhoto(imageView: ImageView, photoList: MutableList<PhotoModel>) {
     }
 }
 
+@BindingAdapter("photo")
+fun setPhoto(imageView: ImageView, photo: PhotoModel) {
+    Glide.with(imageView.context).load(photo.photoUrl).placeholder(R.drawable.material_bg_2)
+        .into(imageView)
+}
+
 @BindingAdapter("location")
 fun setAddress(view: TextView, string: String) {
     val location = string.split(",".toRegex()).toTypedArray()
     val latLng = LatLng(location[0].toDouble(), location[1].toDouble())
 
-    val addressList = Geocoder(view.context, Locale.getDefault()).getFromLocation(latLng.latitude, latLng.longitude, 1)
+    val addressList = Geocoder(view.context, Locale.getDefault()).getFromLocation(
+        latLng.latitude,
+        latLng.longitude,
+        1
+    )
     val locality = if (addressList[0].locality != null) addressList[0].locality else "Unknown"
-    val countryName = if (addressList[0].countryName != null) addressList[0].countryName else "Unknown"
+    val countryName =
+        if (addressList[0].countryName != null) addressList[0].countryName else "Unknown"
     view.text = "$locality, $countryName"
 
 }

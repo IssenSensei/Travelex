@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="photo"
+            type="com.example.travelex.database.PhotoModel" />
+
+        <variable
+            name="clickListener"
+            type="com.example.travelex.misc.PhotoGridListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_medium">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/item_image"
+                    photo="@{photo}"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/grey_80"
+                    android:scaleType="centerCrop"
+                    android:onClick="@{() -> clickListener.onPhotoClicked(photo)}"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageButton
+                android:id="@+id/item_image_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@color/transparent"
+                android:onClick="@{() -> clickListener.onDeleteClicked(photo)}"
+                android:src="@drawable/delete_outline_black" />
+
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

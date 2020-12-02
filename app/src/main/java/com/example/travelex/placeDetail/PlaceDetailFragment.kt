@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.travelex.R
-import com.example.travelex.database.PlaceWithPhotos
+import com.example.travelex.database.PhotoModel
 import com.example.travelex.databinding.PlaceDetailFragmentBinding
 import com.example.travelex.misc.AdapterImageSlider
+import com.example.travelex.misc.PhotoGridAdapter
+import com.example.travelex.misc.PhotoGridListener
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -18,7 +21,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class PlaceDetailFragment : Fragment() {
+class PlaceDetailFragment : Fragment(), PhotoGridListener {
     private lateinit var placeDetailViewModel: PlaceDetailViewModel
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -51,6 +54,7 @@ class PlaceDetailFragment : Fragment() {
 
         initMap(binding)
         initSlider(binding)
+        initGrid(binding)
 
         binding.executePendingBindings()
         return binding.root
@@ -86,5 +90,21 @@ class PlaceDetailFragment : Fragment() {
         mapFragment!!.getMapAsync(callback)
 
         mapFragment.requireView().isClickable = false
+    }
+
+    private fun initGrid(binding: PlaceDetailFragmentBinding) {
+        val adapter = PhotoGridAdapter(this, false)
+        binding.placeDetailPhotoGrid.adapter = adapter
+        adapter.submitList(placeDetailViewModel.placeWithPhotos.photos)
+        val manager = GridLayoutManager(activity, 3)
+        binding.placeDetailPhotoGrid.layoutManager = manager
+    }
+
+    override fun onDeleteClicked(photoModel: PhotoModel) {
+        Toast.makeText(requireContext(), "delete" + photoModel.photoID.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPhotoClicked(photoModel: PhotoModel) {
+        Toast.makeText(requireContext(), "photo" + photoModel.photoID.toString(), Toast.LENGTH_SHORT).show()
     }
 }

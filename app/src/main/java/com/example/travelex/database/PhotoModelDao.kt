@@ -27,4 +27,7 @@ interface PhotoModelDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNotExisting(photoModel: MutableList<PhotoModel>)
 
+    @Query("DELETE FROM photos WHERE placeId = :id")
+    fun deletePlacePhotos(id: Int)
+
 }
