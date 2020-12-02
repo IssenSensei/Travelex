@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
 import com.example.travelex.database.TravelexDatabase
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,6 +16,7 @@ class PlaceCreateViewModel(application: Application) : AndroidViewModel(applicat
     private val photoModelDao =
         TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
     val photos = mutableListOf<PhotoModel>()
+    lateinit var location: String
 
     fun insert(place: Place) {
         viewModelScope.launch(Dispatchers.IO) {

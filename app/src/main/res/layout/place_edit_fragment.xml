@@ -251,7 +251,7 @@
                                 android:id="@+id/place_edit_location"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@{placeWithPhotos.place.location}" />
+                                app:location="@{placeWithPhotos.place.latLng}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 

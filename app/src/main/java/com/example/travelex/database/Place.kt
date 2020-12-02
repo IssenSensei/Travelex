@@ -14,7 +14,7 @@ data class Place(
 
     var description: String = "",
 
-    var location: String = "",
+    var latLng: String = "",
 
     var rating: Float = 0f,
 

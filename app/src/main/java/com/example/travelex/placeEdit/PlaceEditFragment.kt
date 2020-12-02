@@ -22,18 +22,18 @@ import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.PlaceEditFragmentBinding
 import com.example.travelex.misc.AdapterImageSlider
 import com.example.travelex.misc.ViewAnimation
+import com.example.travelex.misc.getAddress
+import com.example.travelex.misc.latLngToString
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.place_edit_fragment.*
-import kotlinx.android.synthetic.main.place_edit_fragment.back_drop
 import java.io.File
 import java.io.IOException
 import java.text.DateFormat
 import java.util.*
-import kotlin.jvm.Throws
 
 //todo wyswietlać grid na dole z możliwością usuwania zdjeć
 class PlaceEditFragment : Fragment() {
@@ -104,7 +104,7 @@ class PlaceEditFragment : Fragment() {
     }
 
     private fun initMap(binding: PlaceEditFragmentBinding) {
-        val latlong = placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
+        val latlong = placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
         selectedPosition = LatLng(latlong[0].toDouble(), latlong[1].toDouble())
 
         val mapFragment =
@@ -113,7 +113,7 @@ class PlaceEditFragment : Fragment() {
 
 
         binding.placeEditMapButton.setOnClickListener {
-            val latlong = placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
+            val latlong = placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
             val bundle =
                 bundleOf("selectedPosition" to LatLng(latlong[0].toDouble(), latlong[1].toDouble()))
             findNavController().navigate(R.id.nav_maps, bundle)
@@ -122,7 +122,8 @@ class PlaceEditFragment : Fragment() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>("location")
             ?.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    place_edit_location.setText(it?.latitude.toString() + ", " + it?.longitude.toString())
+                    place_edit_location.setText(getAddress(it, requireContext()))
+                    placeEditViewModel.location = latLngToString(it)
                     mapFragment.requireView().visibility = View.VISIBLE
                     selectedPosition = it
                 }
@@ -177,7 +178,7 @@ class PlaceEditFragment : Fragment() {
     private fun updatePlace() {
         placeWithPhotos.place.name = place_edit_name.text.toString()
         placeWithPhotos.place.description = place_edit_description.text.toString()
-        placeWithPhotos.place.location = place_edit_location.text.toString()
+        placeWithPhotos.place.latLng = placeEditViewModel.location
         placeWithPhotos.place.rating = place_edit_rating.rating
         placeWithPhotos.place.comment = place_edit_comment.text.toString()
         placeEditViewModel.update(
@@ -186,7 +187,7 @@ class PlaceEditFragment : Fragment() {
                     placeWithPhotos.place.id,
                     placeWithPhotos.place.name,
                     placeWithPhotos.place.description,
-                    placeWithPhotos.place.location,
+                    placeWithPhotos.place.latLng,
                     placeWithPhotos.place.rating,
                     placeWithPhotos.place.comment
                 ),

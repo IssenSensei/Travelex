@@ -85,7 +85,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="@{placeWithPhoto.place.location}"
+                            app:location="@{placeWithPhoto.place.latLng}"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:textColor="@color/light_blue_400"
                             android:textStyle="bold" />

@@ -23,8 +23,8 @@ class PlaceDetailFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
 
-        val latlong = placeDetailViewModel.placeWithPhotos.place.location.split(",".toRegex()).toTypedArray()
-        val location = LatLng(latlong[0].toDouble(), latlong[1].toDouble())
+        val latLng = placeDetailViewModel.placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
+        val location = LatLng(latLng[0].toDouble(), latLng[1].toDouble())
 
         val zoom = 16f
         googleMap.addMarker(MarkerOptions().position(location).title(placeDetailViewModel.placeWithPhotos.place.name))

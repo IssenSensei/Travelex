@@ -17,6 +17,7 @@ class PlaceEditViewModel(application: Application) : AndroidViewModel(applicatio
     private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
     private val photoModelDao = TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
     var photos = mutableListOf<PhotoModel>()
+    lateinit var location: String
 
     fun update(placeWithPhotos: PlaceWithPhotos) {
         viewModelScope.launch(Dispatchers.IO){

@@ -19,6 +19,8 @@ import com.example.travelex.R
 import com.example.travelex.database.Place
 import com.example.travelex.misc.AdapterImageSlider
 import com.example.travelex.misc.ViewAnimation
+import com.example.travelex.misc.getAddress
+import com.example.travelex.misc.latLngToString
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -147,7 +149,8 @@ class PlaceCreateFragment : Fragment() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>("location")
             ?.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    place_create_location.setText(it?.latitude.toString() + ", " + it?.longitude.toString())
+                    place_create_location.setText(getAddress(it, requireContext()))
+                    placeCreateViewModel.location = latLngToString(it)
                     mapFragment.requireView().visibility = View.VISIBLE
                     selectedPosition = it
                 }
@@ -173,7 +176,7 @@ class PlaceCreateFragment : Fragment() {
                 0,
                 place_create_name.text.toString(),
                 place_create_description.text.toString(),
-                place_create_location.text.toString(),
+                placeCreateViewModel.location.toString(),
                 place_create_rating.rating,
                 place_create_comment.text.toString()
             )
