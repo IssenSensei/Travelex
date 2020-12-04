@@ -28,6 +28,7 @@ abstract class TravelexDatabase : RoomDatabase() {
                         mutableListOf(
                             Place(
                                 1,
+                                0,
                                 "Zhangye Danxia Geopark, China",
                                 "Geology lovers and avid Instagrammers alike will be drawn to the otherworldly hues of the \"Rainbow Mountains.\" The colors were formed by the layering of sedimentary mineral deposits over millions of years, but it's hard to look at the flowing reds, yellows, and oranges and not feel like you're witnessing magic.",
                                 "51.22229105088706, 22.606841115528717",
@@ -36,6 +37,7 @@ abstract class TravelexDatabase : RoomDatabase() {
                             ),
                             Place(
                                 2,
+                                0,
                                 "Venice, Italy",
                                 "If traversing the canals with a be-striped gondolier sounds unbearably touristy, stick to the sidewalks and spectacular arched bridges to get your fill of this truly unique, wildly romantic floating city.",
                                 "51.23720139958699, 22.57654678717597",
@@ -44,12 +46,22 @@ abstract class TravelexDatabase : RoomDatabase() {
                             ),
                             Place(
                                 3,
+                                0,
                                 "Banff National Park, Canada",
                                 "The glacial lakes in Canada's first national park have some of the bluest water you've ever seen. Even if you're not particularly outdoorsy, you can still admire the views from one of the cozy and luxurious lakeside lodges throughout the park, like the Fairmont Chateau Lake Louise.",
                                 "51.23152440824398, 22.568608979745317",
                                 2.9f,
                                 "Padał deszcz więc słaby wyjazd"
                             ),
+                            Place(
+                                4,
+                                1,
+                                "Banff National Park, Canada",
+                                "The glacial lakes in Canada's first national park have some of the bluest water you've ever seen. Even if you're not particularly outdoorsy, you can still admire the views from one of the cozy and luxurious lakeside lodges throughout the park, like the Fairmont Chateau Lake Louise.",
+                                "51.23152440824398, 22.568608979745317",
+                                2.9f,
+                                "Padał deszcz więc słaby wyjazd"
+                            )
                         )
                     )
                     photoModelDao.insert(
@@ -74,6 +86,11 @@ abstract class TravelexDatabase : RoomDatabase() {
                                 1,
                                 "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/banff-517747003-1494616292.jpg"
                             ),
+                            PhotoModel(
+                                0,
+                                4,
+                                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/banff-517747003-1494616292.jpg"
+                            )
                         )
                     )
                 }

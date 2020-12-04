@@ -206,6 +206,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
             PlaceWithPhotos(
                 Place(
                     placeWithPhotos.place.id,
+                    0,
                     placeWithPhotos.place.name,
                     placeWithPhotos.place.description,
                     placeWithPhotos.place.latLng,

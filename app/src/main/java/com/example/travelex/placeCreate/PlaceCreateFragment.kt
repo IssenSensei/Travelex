@@ -187,6 +187,7 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
         placeCreateViewModel.insert(
             Place(
                 0,
+                0,
                 place_create_name.text.toString(),
                 place_create_description.text.toString(),
                 placeCreateViewModel.location.toString(),
