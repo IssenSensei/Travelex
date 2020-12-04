@@ -9,7 +9,7 @@
         android:id="@+id/nav_places_list"
         android:name="com.example.travelex.placesList.PlacesListFragment"
         android:label="All places"
-        tools:layout="@layout/places_list_fragment">
+        tools:layout="@layout/fragment_places_list">
         <action
             android:id="@+id/action_nav_places_list_to_nav_place_detail"
             app:destination="@id/nav_place_detail" />
@@ -21,7 +21,7 @@
         android:id="@+id/nav_place_detail"
         android:name="com.example.travelex.placeDetail.PlaceDetailFragment"
         android:label="My place"
-        tools:layout="@layout/place_detail_fragment">
+        tools:layout="@layout/fragment_place_detail">
         <argument
             android:name="placeWithPhotos"
             app:argType="com.example.travelex.database.PlaceWithPhotos" />
@@ -33,7 +33,7 @@
         android:id="@+id/nav_place_create"
         android:name="com.example.travelex.placeCreate.PlaceCreateFragment"
         android:label="Add place"
-        tools:layout="@layout/place_create_fragment">
+        tools:layout="@layout/fragment_place_create">
         <action
             android:id="@+id/action_nav_place_create_to_nav_places_list"
             app:destination="@id/nav_places_list"
@@ -47,7 +47,7 @@
         android:id="@+id/nav_place_edit"
         android:name="com.example.travelex.placeEdit.PlaceEditFragment"
         android:label="Edit place"
-        tools:layout="@layout/place_edit_fragment">
+        tools:layout="@layout/fragment_place_edit">
         <argument
             android:name="placeWithPhotos"
             app:argType="com.example.travelex.database.PlaceWithPhotos" />
@@ -66,4 +66,9 @@
             android:id="@+id/action_nav_maps_to_nav_place_create"
             app:destination="@id/nav_place_create" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_places_map"
+        android:name="com.example.travelex.placesMap.PlacesMapFragment"
+        android:label="Places map"
+        tools:layout="@layout/fragment_places_map" />
 </navigation>

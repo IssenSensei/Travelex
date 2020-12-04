@@ -7,6 +7,7 @@
     <string name="title_places_menu">Places</string>
     <string name="title_places_list">All places</string>
     <string name="title_place_create">Add place</string>
+    <string name="title_places_map">Places map</string>
     <string name="title_settings_menu">Settings</string>
     <string name="title_settings_notifications">Notifications</string>
     <string name="title_settings_profile">Edit profile</string>

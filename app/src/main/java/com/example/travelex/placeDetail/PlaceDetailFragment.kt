@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
-import com.example.travelex.databinding.PlaceDetailFragmentBinding
+import com.example.travelex.databinding.FragmentPlaceDetailBinding
 import com.example.travelex.misc.AdapterImageSlider
 import com.example.travelex.misc.PhotoGridAdapter
 import com.example.travelex.misc.PhotoGridListener
@@ -47,7 +47,7 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
         savedInstanceState: Bundle?
     ): View? {
         placeDetailViewModel = ViewModelProvider(this).get(PlaceDetailViewModel::class.java)
-        val binding = PlaceDetailFragmentBinding.inflate(inflater, container, false)
+        val binding = FragmentPlaceDetailBinding.inflate(inflater, container, false)
         val safeArgs: PlaceDetailFragmentArgs by navArgs()
         placeDetailViewModel.placeWithPhotos = safeArgs.placeWithPhotos
         binding.placeWithPhotos = placeDetailViewModel.placeWithPhotos
@@ -77,14 +77,14 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initSlider(binding: PlaceDetailFragmentBinding) {
+    private fun initSlider(binding: FragmentPlaceDetailBinding) {
         //todo wyswietlać grid na dole z możliwością usuwania zdjeć
         val sliderAdapter = AdapterImageSlider(requireActivity(), placeDetailViewModel.placeWithPhotos.photos)
         binding.placeDetailPager.adapter = sliderAdapter
         sliderAdapter.startAutoSlider(sliderAdapter.count, binding.placeDetailPager)
     }
 
-    private fun initMap(binding: PlaceDetailFragmentBinding) {
+    private fun initMap(binding: FragmentPlaceDetailBinding) {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.place_detail_map) as SupportMapFragment?
         mapFragment!!.getMapAsync(callback)
@@ -92,7 +92,7 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
         mapFragment.requireView().isClickable = false
     }
 
-    private fun initGrid(binding: PlaceDetailFragmentBinding) {
+    private fun initGrid(binding: FragmentPlaceDetailBinding) {
         val adapter = PhotoGridAdapter(this, false)
         binding.placeDetailPhotoGrid.adapter = adapter
         adapter.submitList(placeDetailViewModel.placeWithPhotos.photos)

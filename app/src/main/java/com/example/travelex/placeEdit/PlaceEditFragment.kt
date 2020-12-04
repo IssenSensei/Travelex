@@ -22,16 +22,14 @@ import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
-import com.example.travelex.databinding.PlaceEditFragmentBinding
+import com.example.travelex.databinding.FragmentPlaceEditBinding
 import com.example.travelex.misc.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.place_create_fragment.*
-import kotlinx.android.synthetic.main.place_edit_fragment.*
-import kotlinx.android.synthetic.main.place_edit_fragment.back_drop
+import kotlinx.android.synthetic.main.fragment_place_edit.*
 import java.io.File
 import java.io.IOException
 import java.text.DateFormat
@@ -71,7 +69,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
         savedInstanceState: Bundle?
     ): View? {
         placeEditViewModel = ViewModelProvider(this).get(PlaceEditViewModel::class.java)
-        val binding = PlaceEditFragmentBinding.inflate(inflater, container, false)
+        val binding = FragmentPlaceEditBinding.inflate(inflater, container, false)
         val safeArgs: PlaceEditFragmentArgs by navArgs()
         placeWithPhotos = safeArgs.placeWithPhotos
         placeEditViewModel.photos.addAll(placeWithPhotos.photos)
@@ -107,7 +105,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initMap(binding: PlaceEditFragmentBinding) {
+    private fun initMap(binding: FragmentPlaceEditBinding) {
         val latlong = placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
         selectedPosition = LatLng(latlong[0].toDouble(), latlong[1].toDouble())
 
@@ -134,7 +132,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
             }
     }
 
-    private fun initPhoto(binding: PlaceEditFragmentBinding) {
+    private fun initPhoto(binding: FragmentPlaceEditBinding) {
         ViewAnimation.initShowOut(binding.placeEditGalleryContainer)
         ViewAnimation.initShowOut(binding.placeEditCameraContainer)
         binding.backDrop.visibility = View.GONE
@@ -174,7 +172,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
         }
     }
 
-    private fun initGrid(binding: PlaceEditFragmentBinding) {
+    private fun initGrid(binding: FragmentPlaceEditBinding) {
         photoGridAdapter = PhotoGridAdapter(this, true)
         binding.placeEditPhotoGrid.adapter = photoGridAdapter
 

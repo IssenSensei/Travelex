@@ -6,31 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".placesList.PlacesListFragment">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/places_list_tabs"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginEnd="@dimen/spacing_large"
+        app:cardCornerRadius="@dimen/spacing_mxlarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/places_list_tab_own"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="My" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/places_list_tabs_other"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Other" />
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/places_list_tab_own"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:text="My" />
+            </com.balysv.materialripple.MaterialRippleLayout>
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey_1000" />
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/places_list_tabs_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:text="Other" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
     <!--    <com.google.android.material.appbar.AppBarLayout-->
     <!--        android:id="@+id/places_list_appbar"-->
     <!--        android:layout_width="match_parent"-->

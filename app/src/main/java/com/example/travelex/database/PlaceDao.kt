@@ -23,6 +23,10 @@ interface PlaceDao{
     @Query("SELECT * FROM places_table where userId = :id")
     fun getUserPlaces(id: Int): LiveData<List<PlaceWithPhotos>>
 
+    @Transaction
+    @Query("SELECT * FROM places_table")
+    fun getAllPlaces(): LiveData<List<PlaceWithPhotos>>
+
     @Update
     fun update(place: Place)
 

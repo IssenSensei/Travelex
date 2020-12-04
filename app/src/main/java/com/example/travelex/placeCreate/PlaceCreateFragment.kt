@@ -25,7 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.place_create_fragment.*
+import kotlinx.android.synthetic.main.fragment_place_create.*
 import java.io.File
 import java.io.IOException
 import java.text.DateFormat
@@ -64,7 +64,7 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
         savedInstanceState: Bundle?
     ): View? {
         placeCreateViewModel = ViewModelProvider(this).get(PlaceCreateViewModel::class.java)
-        return inflater.inflate(R.layout.place_create_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_place_create, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
