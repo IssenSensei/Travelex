@@ -23,6 +23,12 @@ fun setPhoto(imageView: ImageView, photoList: MutableList<PhotoModel>) {
 }
 
 @BindingAdapter("photo")
+fun setPhoto(imageView: ImageView, photo: String) {
+    Glide.with(imageView.context).load(photo).placeholder(R.drawable.material_bg_2)
+        .into(imageView)
+}
+
+@BindingAdapter("photo")
 fun setPhoto(imageView: ImageView, photo: PhotoModel) {
     Glide.with(imageView.context).load(photo.photoUrl).placeholder(R.drawable.material_bg_2)
         .into(imageView)

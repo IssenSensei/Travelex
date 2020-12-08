@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_place_create.*
 import java.io.File
 import java.io.IOException
@@ -43,6 +45,7 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
     private var selectedPosition: LatLng? = null
     private lateinit var currentPhotoPath: String
     private lateinit var photoGridAdapter: PhotoGridAdapter
+    private lateinit var auth: FirebaseAuth
 
     private val callback = OnMapReadyCallback { googleMap ->
         val zoom = 16f
@@ -57,6 +60,7 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        auth = FirebaseAuth.getInstance();
     }
 
     override fun onCreateView(
@@ -184,18 +188,37 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
     }
 
     private fun savePlace() {
-        placeCreateViewModel.insert(
-            Place(
-                0,
-                0,
-                place_create_name.text.toString(),
-                place_create_description.text.toString(),
-                placeCreateViewModel.location.toString(),
-                place_create_rating.rating,
-                place_create_comment.text.toString()
+        if (validateData()) {
+            placeCreateViewModel.insert(
+                Place(
+                    0,
+                    0,
+                    place_create_name.text.toString(),
+                    currentLoggedInUser.userName,
+                    currentLoggedInUser.userEmail,
+                    currentLoggedInUser.userPhoto,
+                    place_create_description.text.toString(),
+                    placeCreateViewModel.location.toString(),
+                    place_create_rating.rating,
+                    place_create_comment.text.toString()
+                )
             )
-        )
-        findNavController().popBackStack()
+            findNavController().popBackStack()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "You have to fill every field to be able to save place",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun validateData(): Boolean {
+        return ((place_create_name.text.toString() != ""
+                && place_create_description.text.toString() != "")
+                && place_create_comment.text.toString() != ""
+                && placeCreateViewModel.photos.size > 0
+                && placeCreateViewModel.location != null)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -8,11 +8,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Place::class, PhotoModel::class], version = 1, exportSchema = false)
+@Database(entities = [Place::class, PhotoModel::class, User::class], version = 1, exportSchema = false)
 abstract class TravelexDatabase : RoomDatabase() {
 
     abstract val placeDao: PlaceDao
     abstract val photoModelDao: PhotoModelDao
+    abstract val userDao: UserDao
 
     private class TravelexDatabaseCallback(private val scope: CoroutineScope) :
         RoomDatabase.Callback() {
@@ -30,6 +31,9 @@ abstract class TravelexDatabase : RoomDatabase() {
                                 1,
                                 0,
                                 "Zhangye Danxia Geopark, China",
+                                "aaaa aaa ",
+                                "",
+                                "",
                                 "Geology lovers and avid Instagrammers alike will be drawn to the otherworldly hues of the \"Rainbow Mountains.\" The colors were formed by the layering of sedimentary mineral deposits over millions of years, but it's hard to look at the flowing reds, yellows, and oranges and not feel like you're witnessing magic.",
                                 "51.22229105088706, 22.606841115528717",
                                 5f,
@@ -39,6 +43,9 @@ abstract class TravelexDatabase : RoomDatabase() {
                                 2,
                                 0,
                                 "Venice, Italy",
+                                "adwa wadawdawd",
+                                "",
+                                "",
                                 "If traversing the canals with a be-striped gondolier sounds unbearably touristy, stick to the sidewalks and spectacular arched bridges to get your fill of this truly unique, wildly romantic floating city.",
                                 "51.23720139958699, 22.57654678717597",
                                 4.8f,
@@ -48,6 +55,9 @@ abstract class TravelexDatabase : RoomDatabase() {
                                 3,
                                 0,
                                 "Banff National Park, Canada",
+                                "aweawe awdawd",
+                                "",
+                                "",
                                 "The glacial lakes in Canada's first national park have some of the bluest water you've ever seen. Even if you're not particularly outdoorsy, you can still admire the views from one of the cozy and luxurious lakeside lodges throughout the park, like the Fairmont Chateau Lake Louise.",
                                 "51.23152440824398, 22.568608979745317",
                                 2.9f,
@@ -57,6 +67,9 @@ abstract class TravelexDatabase : RoomDatabase() {
                                 4,
                                 1,
                                 "Banff National Park, Canada",
+                                "eeeeee eeeee",
+                                "",
+                                "",
                                 "The glacial lakes in Canada's first national park have some of the bluest water you've ever seen. Even if you're not particularly outdoorsy, you can still admire the views from one of the cozy and luxurious lakeside lodges throughout the park, like the Fairmont Chateau Lake Louise.",
                                 "51.23152440824398, 22.568608979745317",
                                 2.9f,

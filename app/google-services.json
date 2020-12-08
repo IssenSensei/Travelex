@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1043773256781",
+    "project_id": "formal-wonder-297021",
+    "storage_bucket": "formal-wonder-297021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043773256781:android:d1c4f752afce2ca2005804",
+        "android_client_info": {
+          "package_name": "com.example.travelex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043773256781-2u2fm2hm1qdakna5hl81r144vitva41t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travelex",
+            "certificate_hash": "bcae4672520780570c93e6b1d379cc7364d524f2"
+          }
+        },
+        {
+          "client_id": "1043773256781-pcpip6nn3u3nj0q4o3si3rug1h5f1ibc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travelex",
+            "certificate_hash": "09d60b48073d8c2c010b8380779446611679ada6"
+          }
+        },
+        {
+          "client_id": "1043773256781-gq1jpgn203t3sbfnhgj0ai26gpeonbpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9Orc_wIhkZMy2YigPtBk2pCtay9316iQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043773256781-gq1jpgn203t3sbfnhgj0ai26gpeonbpb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

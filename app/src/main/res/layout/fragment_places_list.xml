@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/places_list_tabs"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginEnd="@dimen/spacing_large"
@@ -18,39 +18,43 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <com.balysv.materialripple.MaterialRippleLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_width="wrap_content"
+                android:paddingStart="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
+                android:layout_height="wrap_content">
 
-                <Button
+                <TextView
                     android:id="@+id/places_list_tab_own"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_small"
                     android:background="@color/transparent"
-                    android:text="My" />
+                    android:clickable="true"
+                    android:text="My places"
+                    android:textColor="@color/grey_1000" />
             </com.balysv.materialripple.MaterialRippleLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/grey_1000" />
-
             <com.balysv.materialripple.MaterialRippleLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_width="wrap_content"
+                android:paddingStart="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_large"
+                android:layout_height="wrap_content">
 
-                <Button
+                <TextView
                     android:id="@+id/places_list_tabs_other"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_small"
                     android:background="@color/transparent"
-                    android:text="Other" />
+                    android:clickable="true"
+                    android:text="Other places"
+                    android:textColor="@color/grey_1000" />
             </com.balysv.materialripple.MaterialRippleLayout>
 
         </LinearLayout>

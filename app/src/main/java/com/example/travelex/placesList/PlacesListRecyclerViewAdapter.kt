@@ -16,7 +16,9 @@ class PlaceWithPhotosRecyclerViewAdapter(
     private val placesListListener: PlacesListListener,
     activity: FragmentActivity
 ) :
-    ListAdapter<PlaceWithPhotos, PlaceWithPhotosRecyclerViewAdapter.ViewHolder>(PlaceWithPhotosListDiffCallback()) {
+    ListAdapter<PlaceWithPhotos, PlaceWithPhotosRecyclerViewAdapter.ViewHolder>(
+        PlaceWithPhotosListDiffCallback()
+    ) {
 
     private var activity: Activity = activity
 
@@ -33,7 +35,11 @@ class PlaceWithPhotosRecyclerViewAdapter(
     class ViewHolder(private val binding: ItemPlaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: PlaceWithPhotos, placesListListener: PlacesListListener, activity: Activity) {
+        fun bind(
+            item: PlaceWithPhotos,
+            placesListListener: PlacesListListener,
+            activity: Activity
+        ) {
             binding.placeWithPhoto = item
 
             val sliderAdapter = AdapterImageSlider(activity, item.photos)
@@ -44,7 +50,6 @@ class PlaceWithPhotosRecyclerViewAdapter(
             binding.executePendingBindings()
         }
     }
-
 
 }
 

@@ -64,7 +64,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_email"
+                android:id="@+id/register_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="-4dp"
@@ -90,14 +90,14 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_password"
+                android:id="@+id/register_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"
                 android:inputType="textPassword"
-                android:maxLength="50"
                 android:text="Kuragari5"
+                android:maxLength="50"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/blue_grey_300" />
@@ -107,33 +107,29 @@
                 android:layout_height="@dimen/spacing_middle" />
 
             <TextView
-                android:id="@+id/forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:clickable="true"
-                android:text="Forgot Password?"
-                android:onClick="navigateRemindPassword"
+                android:text="Imie i nazwisko"
                 android:textAlignment="center"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/blue_grey_400"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/blue_grey_800"
                 android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-4dp"
+                android:layout_marginRight="-4dp"
+                android:text="imie nazwisko"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/blue_grey_300" />
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="@dimen/spacing_large" />
-
-
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/sign_in_button"
-                android:layout_width="match_parent"
-                android:background="@drawable/btn_purple_a400"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="-4dp"
-                android:layout_marginRight="-4dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="@dimen/spacing_middle" />
 
             <Button
                 android:id="@+id/login_button"
@@ -142,11 +138,11 @@
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"
                 android:background="@drawable/btn_purple_a400"
-                android:text="Login"
-                android:onClick="login"
+                android:text="Register"
+                android:onClick="register"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                 />
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="0dp"
@@ -162,17 +158,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New user? "
+                    android:text="Have an account? "
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/blue_grey_300" />
 
                 <TextView
-                    android:id="@+id/sign_up"
+                    android:id="@+id/sign_in"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:text="Sign Up"
-                    android:onClick="navigateRegister"
+                    android:text="Sign In"
+                    android:onClick="navigateLogin"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/purple_A400"
                     android:textStyle="bold" />

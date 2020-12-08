@@ -18,6 +18,8 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.travelex.MainActivity
+import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_place_edit.*
 import java.io.File
 import java.io.IOException
@@ -46,6 +49,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
     private var rotate = false
     private lateinit var currentPhotoPath: String
     private lateinit var photoGridAdapter: PhotoGridAdapter
+    private lateinit var auth: FirebaseAuth
 
     private val callback = OnMapReadyCallback { googleMap ->
         val zoom = 16f
@@ -62,6 +66,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        auth = FirebaseAuth.getInstance();
     }
 
     override fun onCreateView(
@@ -206,6 +211,9 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
                     placeWithPhotos.place.id,
                     0,
                     placeWithPhotos.place.name,
+                    currentLoggedInUser.userName,
+                    currentLoggedInUser.userEmail,
+                    currentLoggedInUser.userPhoto,
                     placeWithPhotos.place.description,
                     placeWithPhotos.place.latLng,
                     placeWithPhotos.place.rating,

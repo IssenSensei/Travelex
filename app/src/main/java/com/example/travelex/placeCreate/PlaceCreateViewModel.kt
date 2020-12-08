@@ -18,7 +18,7 @@ class PlaceCreateViewModel(application: Application) : AndroidViewModel(applicat
         TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
     val photos = mutableListOf<PhotoModel>()
     val photosLive = MutableLiveData<List<PhotoModel>>()
-    lateinit var location: String
+    var location: String? = null
 
     fun insert(place: Place) {
         viewModelScope.launch(Dispatchers.IO) {
