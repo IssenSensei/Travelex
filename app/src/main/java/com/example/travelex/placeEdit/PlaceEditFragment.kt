@@ -37,6 +37,7 @@ import java.io.File
 import java.io.IOException
 import java.text.DateFormat
 import java.util.*
+import kotlin.jvm.Throws
 
 class PlaceEditFragment : Fragment(), PhotoGridListener {
 
@@ -209,7 +210,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
             PlaceWithPhotos(
                 Place(
                     placeWithPhotos.place.id,
-                    0,
+                    currentLoggedInUser.uid,
                     placeWithPhotos.place.name,
                     currentLoggedInUser.userName,
                     currentLoggedInUser.userEmail,

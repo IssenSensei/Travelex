@@ -192,7 +192,7 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
             placeCreateViewModel.insert(
                 Place(
                     0,
-                    0,
+                    currentLoggedInUser.uid,
                     place_create_name.text.toString(),
                     currentLoggedInUser.userName,
                     currentLoggedInUser.userEmail,

@@ -16,7 +16,7 @@ fun setPhoto(imageView: ImageView, photoList: MutableList<PhotoModel>) {
     if (photoList.size != 0) {
         imageView.visibility = View.VISIBLE
         photoList.forEach {
-            Glide.with(imageView.context).load(it.photoUrl).placeholder(R.drawable.material_bg_2)
+            Glide.with(imageView.context).load(it.photoUrl).placeholder(R.drawable.photo_female_1)
                 .into(imageView)
         }
     }
@@ -24,13 +24,13 @@ fun setPhoto(imageView: ImageView, photoList: MutableList<PhotoModel>) {
 
 @BindingAdapter("photo")
 fun setPhoto(imageView: ImageView, photo: String) {
-    Glide.with(imageView.context).load(photo).placeholder(R.drawable.material_bg_2)
+    Glide.with(imageView.context).load(photo).placeholder(R.drawable.photo_female_1)
         .into(imageView)
 }
 
 @BindingAdapter("photo")
 fun setPhoto(imageView: ImageView, photo: PhotoModel) {
-    Glide.with(imageView.context).load(photo.photoUrl).placeholder(R.drawable.material_bg_2)
+    Glide.with(imageView.context).load(photo.photoUrl).placeholder(R.drawable.photo_female_1)
         .into(imageView)
 }
 

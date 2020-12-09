@@ -28,11 +28,11 @@
             <menu>
                 <item
                     android:id="@+id/nav_settings_notifications"
-                    android:icon="@drawable/list_black"
+                    android:icon="@drawable/notifications_none"
                     android:title="@string/title_settings_notifications"/>
                 <item
                     android:id="@+id/nav_settings_profile"
-                    android:icon="@drawable/add_black"
+                    android:icon="@drawable/perm_identity"
                     android:title="@string/title_settings_profile" />
             </menu>
         </item>
@@ -42,7 +42,7 @@
             <menu>
                 <item
                     android:id="@+id/nav_logout"
-                    android:icon="@drawable/add_black"
+                    android:icon="@drawable/power_settings"
                     android:title="@string/title_logout" />
             </menu>
         </item>

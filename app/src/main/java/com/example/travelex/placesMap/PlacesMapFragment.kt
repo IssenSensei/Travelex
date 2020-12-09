@@ -7,11 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
-import com.example.travelex.misc.latLngToString
 
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -25,7 +24,7 @@ class PlacesMapFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
-        placesMapViewModel.allTasks.observe(this, {
+        placesMapViewModel.allPlaces.observe(this) {
             it.forEach {
 
                 val location = it.place.latLng.split(",".toRegex()).toTypedArray()
@@ -35,7 +34,7 @@ class PlacesMapFragment : Fragment() {
                     MarkerOptions().position(latLng).title(it.place.name)
                         .snippet(it.place.description)
                         .icon(
-                            if (it.place.userId == 0) {
+                            if (it.place.userUid == currentLoggedInUser.uid) {
                                 BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
                             } else {
                                 BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)
@@ -43,7 +42,7 @@ class PlacesMapFragment : Fragment() {
                         )
                 )
             }
-        })
+        }
     }
 
     override fun onCreateView(

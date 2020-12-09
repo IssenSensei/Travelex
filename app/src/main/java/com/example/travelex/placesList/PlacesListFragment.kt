@@ -57,5 +57,9 @@ class PlacesListFragment : Fragment(), PlacesListListener {
         findNavController().navigate(actionDetail)
     }
 
+    fun initializeListWithOtherPlaces(){
+        placesListViewModel.getOtherPlaces()
+    }
+
 
 }

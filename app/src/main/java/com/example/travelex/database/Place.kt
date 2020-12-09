@@ -10,7 +10,7 @@ data class Place(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
-    val userId: Int = 0,
+    val userUid: String = "",
 
     var name: String = "",
 

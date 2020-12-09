@@ -21,12 +21,6 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_middle" />
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/logo_small"
-                app:tint="@color/blue_grey_800" />
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_large" />
@@ -71,7 +65,6 @@
                 android:layout_marginRight="-4dp"
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
-                android:text="IssenScout@gmail.com"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/blue_grey_300" />
@@ -96,7 +89,6 @@
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"
                 android:inputType="textPassword"
-                android:text="Kuragari5"
                 android:maxLength="50"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -121,7 +113,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"
-                android:text="imie nazwisko"
                 android:maxLength="50"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -137,7 +128,7 @@
                 android:layout_height="55dp"
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"
-                android:background="@drawable/btn_purple_a400"
+                android:background="@color/colorAccentDark"
                 android:text="Register"
                 android:onClick="register"
                 android:textAllCaps="false"
@@ -170,7 +161,7 @@
                     android:text="Sign In"
                     android:onClick="navigateLogin"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/purple_A400"
+                    android:textColor="@color/colorAccentDark"
                     android:textStyle="bold" />
 
             </LinearLayout>

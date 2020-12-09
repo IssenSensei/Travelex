@@ -16,12 +16,12 @@ interface PlaceDao{
     suspend fun insert(place: MutableList<Place>)
 
     @Transaction
-    @Query("SELECT * FROM places_table where userId <> :id")
-    fun getOtherPlaces(id: Int): LiveData<List<PlaceWithPhotos>>
+    @Query("SELECT * FROM places_table where userUid <> :uid")
+    fun getOtherPlaces(uid: String): LiveData<List<PlaceWithPhotos>>
 
     @Transaction
-    @Query("SELECT * FROM places_table where userId = :id")
-    fun getUserPlaces(id: Int): LiveData<List<PlaceWithPhotos>>
+    @Query("SELECT * FROM places_table where userUid = :uid")
+    fun getUserPlaces(uid: String): LiveData<List<PlaceWithPhotos>>
 
     @Transaction
     @Query("SELECT * FROM places_table")

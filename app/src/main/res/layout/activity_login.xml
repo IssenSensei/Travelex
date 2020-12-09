@@ -21,11 +21,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_middle" />
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/logo_small"
-                app:tint="@color/blue_grey_800" />
+
 
             <View
                 android:layout_width="0dp"
@@ -71,7 +67,6 @@
                 android:layout_marginRight="-4dp"
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
-                android:text="IssenScout@gmail.com"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/blue_grey_300" />
@@ -97,7 +92,6 @@
                 android:layout_marginRight="-4dp"
                 android:inputType="textPassword"
                 android:maxLength="50"
-                android:text="Kuragari5"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/blue_grey_300" />
@@ -125,28 +119,28 @@
                 android:layout_height="@dimen/spacing_large" />
 
 
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/sign_in_button"
-                android:layout_width="match_parent"
-                android:background="@drawable/btn_purple_a400"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="-4dp"
-                android:layout_marginRight="-4dp"
-                android:layout_height="wrap_content" />
-
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"
-                android:background="@drawable/btn_purple_a400"
+                android:background="@color/colorAccentDark"
                 android:text="Login"
                 android:onClick="login"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                  />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="match_parent"
+                android:background="@color/grey_50"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="-4dp"
+                android:layout_marginRight="-4dp"
+                android:layout_height="wrap_content" />
 
             <View
                 android:layout_width="0dp"
@@ -174,7 +168,7 @@
                     android:text="Sign Up"
                     android:onClick="navigateRegister"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/purple_A400"
+                    android:textColor="@color/colorAccentDark"
                     android:textStyle="bold" />
 
             </LinearLayout>

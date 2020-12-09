@@ -1,6 +1,5 @@
 package com.example.travelex
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -15,12 +15,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.example.travelex.database.TravelexDatabase
 import com.example.travelex.database.User
+import com.example.travelex.placesList.PlacesListFragment
 import com.example.travelex.profile.OnProfileEditListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.drawer_header.view.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -43,6 +43,15 @@ class MainActivity : AppCompatActivity(), OnProfileEditListener {
                 TravelexDatabase.getDatabase(applicationContext, this).userDao.getUser(auth.uid)
         }.invokeOnCompletion {
             updateNavigationHeader()
+            when (val currentFragment = (supportFragmentManager.primaryNavigationFragment as NavHostFragment)
+                .childFragmentManager.primaryNavigationFragment) {
+                is PlacesListFragment -> {
+                    currentFragment.initializeListWithOtherPlaces()
+                }
+                else -> {
+
+                }
+            }
         }
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
