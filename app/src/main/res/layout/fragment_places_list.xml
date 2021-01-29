@@ -59,30 +59,6 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-    <!--    <com.google.android.material.appbar.AppBarLayout-->
-    <!--        android:id="@+id/places_list_appbar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        android:theme="@style/AppTheme.AppBarOverlay">-->
-
-    <!--        <com.google.android.material.tabs.TabLayout-->
-    <!--            android:id="@+id/places_list_tab"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="?attr/actionBarSize" />-->
-
-    <!--    </com.google.android.material.appbar.AppBarLayout>-->
-
-
-    <!--    <androidx.viewpager.widget.ViewPager-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/places_list_appbar" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/places_recycler_list"
@@ -93,7 +69,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/places_list_tabs" />
-    <!--    app:layout_constraintTop_toBottomOf="@id/places_list_appbar"-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/places_recycler_list_fab"
@@ -104,5 +79,6 @@
         android:backgroundTint="@color/colorAccentDark"
         android:src="@drawable/add_white"
         app:layout_constraintBottom_toBottomOf="@+id/places_recycler_list"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/add_place" />
 </androidx.constraintlayout.widget.ConstraintLayout>

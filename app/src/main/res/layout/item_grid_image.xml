@@ -49,6 +49,8 @@
                 android:id="@+id/item_image_remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:layout_gravity="end"
                 android:background="@color/transparent"
                 android:onClick="@{() -> clickListener.onDeleteClicked(photo)}"

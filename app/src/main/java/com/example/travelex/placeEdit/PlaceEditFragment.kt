@@ -289,7 +289,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
     private fun startSlider() {
         if (placeEditViewModel.photos.size > 0) {
             place_edit_pager.visibility = View.VISIBLE
-            place_edit_pager_placeholder.visibility = View.GONE
+            place_edit_pager_placeholder.visibility = View.INVISIBLE
             sliderAdapter = AdapterImageSlider(requireActivity(), placeEditViewModel.photos)
             place_edit_pager.adapter = sliderAdapter
             sliderAdapter.startAutoSlider(placeEditViewModel.photos.size, place_edit_pager)

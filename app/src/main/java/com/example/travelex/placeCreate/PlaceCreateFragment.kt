@@ -251,7 +251,7 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
     private fun startSlider() {
         if (placeCreateViewModel.photos.size > 0) {
             place_create_pager.visibility = View.VISIBLE
-            place_create_pager_placeholder.visibility = View.GONE
+            place_create_pager_placeholder.visibility = View.INVISIBLE
             sliderAdapter = AdapterImageSlider(requireActivity(), placeCreateViewModel.photos)
             place_create_pager.adapter = sliderAdapter
             sliderAdapter.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
