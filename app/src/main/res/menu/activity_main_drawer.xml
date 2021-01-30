@@ -9,16 +9,12 @@
             android:title="@string/title_places_menu" >
             <menu>
                 <item
-                    android:id="@+id/nav_places_list"
-                    android:icon="@drawable/list_black"
-                    android:title="@string/title_places_list"/>
-                <item
                     android:id="@+id/nav_places_map"
                     android:icon="@drawable/ic_world"
                     android:title="@string/title_places_map" />
                 <item
                     android:id="@+id/nav_place_create"
-                    android:icon="@drawable/add_black"
+                    android:icon="@drawable/ic_add"
                     android:title="@string/title_place_create" />
             </menu>
         </item>
@@ -27,12 +23,8 @@
             android:title="@string/title_settings_menu" >
             <menu>
                 <item
-                    android:id="@+id/nav_settings_notifications"
-                    android:icon="@drawable/notifications_none"
-                    android:title="@string/title_settings_notifications"/>
-                <item
                     android:id="@+id/nav_settings_profile"
-                    android:icon="@drawable/perm_identity"
+                    android:icon="@drawable/ic_profile"
                     android:title="@string/title_settings_profile" />
             </menu>
         </item>
@@ -42,7 +34,7 @@
             <menu>
                 <item
                     android:id="@+id/nav_logout"
-                    android:icon="@drawable/power_settings"
+                    android:icon="@drawable/ic_power"
                     android:title="@string/title_logout" />
             </menu>
         </item>

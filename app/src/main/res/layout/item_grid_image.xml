@@ -16,8 +16,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:layout_marginEnd="@dimen/spacing_medium"
+        android:background="@android:color/white"
         app:cardCornerRadius="2dp"
         app:cardElevation="2dp">
 
@@ -36,8 +36,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="@color/grey_80"
-                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/image"
                     android:onClick="@{() -> clickListener.onPhotoClicked(photo)}"
+                    android:scaleType="centerCrop"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -49,13 +50,11 @@
                 android:id="@+id/item_image_remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
                 android:layout_gravity="end"
                 android:background="@color/transparent"
+                android:contentDescription="@string/title_delete"
                 android:onClick="@{() -> clickListener.onDeleteClicked(photo)}"
-                android:src="@drawable/delete_outline_black" />
-
+                android:src="@drawable/ic_delete" />
         </FrameLayout>
     </androidx.cardview.widget.CardView>
 </layout>

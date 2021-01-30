@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), OnProfileEditListener {
         header.header_email.text = currentLoggedInUser.userEmail
         header.header_name.text = currentLoggedInUser.userName
         Glide.with(baseContext).load(currentLoggedInUser.userPhoto)
-            .placeholder(R.drawable.photo_female_1).into(
+            .placeholder(R.drawable.ic_profile).into(
                 header.header_photo
             )
     }

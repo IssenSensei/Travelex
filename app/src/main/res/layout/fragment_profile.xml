@@ -26,6 +26,7 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/user_edit_photo"
+            android:src="@drawable/ic_profile"
             photo="@{user.userPhoto}"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -44,7 +45,7 @@
             android:scaleType="centerCrop"
             android:scaleX="0.5"
             android:scaleY="0.5"
-            android:src="@drawable/label_black"
+            android:src="@drawable/ic_label"
             app:layout_constraintBottom_toBottomOf="@id/user_edit_username_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/user_edit_username_layout"
@@ -97,7 +98,7 @@
             android:layout_marginEnd="@dimen/spacing_large"
             android:contentDescription="@string/add_photo"
             android:scaleType="centerCrop"
-            android:src="@drawable/add_a_photo_white"
+            android:src="@drawable/ic_add_photo"
             android:tint="@android:color/white"
             app:backgroundTint="@color/colorAccentDark"
             app:fabSize="normal"
@@ -154,7 +155,7 @@
                 app:layout_constraintStart_toEndOf="@id/user_edit_gallery_card"
                 app:layout_constraintTop_toTopOf="parent"
                 app:rippleColor="@android:color/black"
-                app:srcCompat="@drawable/collections_black" />
+                app:srcCompat="@drawable/ic_gallery" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -205,7 +206,7 @@
                 app:layout_constraintStart_toEndOf="@id/user_edit_camera_card"
                 app:layout_constraintTop_toTopOf="parent"
                 app:rippleColor="@android:color/black"
-                app:srcCompat="@drawable/camera_alt_black" />
+                app:srcCompat="@drawable/ic_camera" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

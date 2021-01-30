@@ -36,7 +36,7 @@
             android:layout_margin="@dimen/spacing_mlarge"
             android:contentDescription="@string/rating"
             android:scaleType="centerCrop"
-            android:src="@drawable/stars_black"
+            android:src="@drawable/ic_rating"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/place_create_pager_placeholder"
             app:tint="@color/grey_60" />
@@ -63,7 +63,7 @@
             android:layout_margin="@dimen/spacing_mlarge"
             android:contentDescription="@string/place_name"
             android:scaleType="centerCrop"
-            android:src="@drawable/label_black"
+            android:src="@drawable/ic_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/place_create_rating"
             app:tint="@color/grey_60" />
@@ -94,7 +94,7 @@
             android:layout_margin="@dimen/spacing_mlarge"
             android:contentDescription="@string/place_description"
             android:scaleType="centerCrop"
-            android:src="@drawable/description_black"
+            android:src="@drawable/ic_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/place_create_description_layout"
             app:layout_constraintBottom_toBottomOf="@id/place_create_description_layout"
@@ -136,7 +136,7 @@
             android:layout_margin="@dimen/spacing_mlarge"
             android:contentDescription="@string/comment"
             android:scaleType="centerCrop"
-            android:src="@drawable/speaker_notes_black"
+            android:src="@drawable/ic_comment"
             app:layout_constraintBottom_toBottomOf="@id/place_create_comment_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/place_create_comment_layout"
@@ -169,7 +169,7 @@
             android:layout_margin="@dimen/spacing_mlarge"
             android:contentDescription="@string/location"
             android:scaleType="centerCrop"
-            android:src="@drawable/location_on_black"
+            android:src="@drawable/ic_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/place_create_location_layout"
             app:layout_constraintBottom_toBottomOf="@id/place_create_location_layout"
@@ -240,7 +240,7 @@
             android:layout_marginEnd="@dimen/spacing_large"
             android:contentDescription="@string/add_photo"
             android:scaleType="centerCrop"
-            android:src="@drawable/add_a_photo_white"
+            android:src="@drawable/ic_add_photo"
             android:tint="@android:color/white"
             app:backgroundTint="@color/colorAccentDark"
             app:fabSize="normal"
@@ -297,7 +297,7 @@
                 app:layout_constraintStart_toEndOf="@id/place_create_gallery_card"
                 app:layout_constraintTop_toTopOf="parent"
                 app:rippleColor="@android:color/black"
-                app:srcCompat="@drawable/collections_black" />
+                app:srcCompat="@drawable/ic_gallery" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -348,7 +348,7 @@
                 app:layout_constraintStart_toEndOf="@id/place_create_camera_card"
                 app:layout_constraintTop_toTopOf="parent"
                 app:rippleColor="@android:color/black"
-                app:srcCompat="@drawable/camera_alt_black" />
+                app:srcCompat="@drawable/ic_camera" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

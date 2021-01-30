@@ -20,7 +20,7 @@
         app:civ_shadow_radius="0"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_xlarge"
-        android:src="@drawable/photo_female_1"
+        android:src="@drawable/ic_profile"
         app:civ_border_width="2dp" />
 
     <LinearLayout
