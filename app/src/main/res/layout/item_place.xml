@@ -9,7 +9,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.travelex.placesList.PlacesListListener" />
+            type="com.example.travelex.misc.PlacesListListener" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"

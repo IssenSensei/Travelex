@@ -1,4 +1,4 @@
-package com.example.travelex.placesList
+package com.example.travelex.userPlacesList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,45 +7,39 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.travelex.R
 import com.example.travelex.database.PlaceWithPhotos
-import kotlinx.android.synthetic.main.fragment_places_list.view.*
+import com.example.travelex.misc.PlaceWithPhotosRecyclerViewAdapter
+import com.example.travelex.misc.PlacesListListener
+import kotlinx.android.synthetic.main.fragment_user_places_list.view.*
 
-class PlacesListFragment : Fragment(), PlacesListListener {
+class UserPlacesListFragment : Fragment(), PlacesListListener {
 
-    private lateinit var placesListViewModel: PlacesListViewModel
+    private lateinit var userPlacesListViewModel: UserPlacesListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        placesListViewModel = ViewModelProvider(this).get(PlacesListViewModel::class.java)
+        userPlacesListViewModel = ViewModelProvider(this).get(UserPlacesListViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_places_list, container, false)
+        val root = inflater.inflate(R.layout.fragment_user_places_list, container, false)
         val adapter = PlaceWithPhotosRecyclerViewAdapter(this, requireActivity())
 
-        placesListViewModel.mediatorLiveData.observe(viewLifecycleOwner) {
+        userPlacesListViewModel.mediatorLiveData.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
             }
         }
 
         root.places_recycler_list.adapter = adapter
-        root.places_recycler_list_fab.setOnClickListener(
-            Navigation.createNavigateOnClickListener(
-                R.id.action_nav_places_list_to_nav_place_create,
-                null
-            )
-        )
-
         root.places_list_tab_own.setOnClickListener {
-            placesListViewModel.getUserPlaces()
+            userPlacesListViewModel.getUserPlaces()
         }
 
         root.places_list_tabs_other.setOnClickListener {
-            placesListViewModel.getOtherPlaces()
+            userPlacesListViewModel.getOtherPlaces()
         }
 
         return root
@@ -53,12 +47,12 @@ class PlacesListFragment : Fragment(), PlacesListListener {
 
     override fun onPlaceSelected(placeWithPhotos: PlaceWithPhotos) {
         val actionDetail =
-            PlacesListFragmentDirections.actionNavPlacesListToNavPlaceDetail(placeWithPhotos)
+            UserPlacesListFragmentDirections.actionNavUserPlacesListToNavPlaceDetail(placeWithPhotos)
         findNavController().navigate(actionDetail)
     }
 
     fun initializeListWithOtherPlaces(){
-        placesListViewModel.getOtherPlaces()
+        userPlacesListViewModel.getOtherPlaces()
     }
 
 

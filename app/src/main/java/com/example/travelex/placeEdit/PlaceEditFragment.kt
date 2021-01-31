@@ -8,7 +8,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -18,7 +17,6 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.travelex.MainActivity
 import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
@@ -197,7 +195,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
 
     private fun deletePlace() {
         placeEditViewModel.delete(placeWithPhotos)
-        findNavController().popBackStack(R.id.nav_places_list, true)
+        findNavController().popBackStack(R.id.nav_user_places_list, true)
     }
 
     private fun updatePlace() {

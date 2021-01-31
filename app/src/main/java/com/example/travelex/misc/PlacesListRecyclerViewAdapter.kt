@@ -1,4 +1,4 @@
-package com.example.travelex.placesList
+package com.example.travelex.misc
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.ItemPlaceBinding
-import com.example.travelex.misc.AdapterImageSlider
 
 
 class PlaceWithPhotosRecyclerViewAdapter(

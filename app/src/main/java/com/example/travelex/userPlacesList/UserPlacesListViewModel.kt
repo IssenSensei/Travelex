@@ -1,8 +1,7 @@
-package com.example.travelex.placesList
+package com.example.travelex.userPlacesList
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.travelex.MainActivity.Companion.currentLoggedInUser
@@ -12,7 +11,7 @@ import com.example.travelex.database.TravelexDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlacesListViewModel(application: Application) : AndroidViewModel(application) {
+class UserPlacesListViewModel(application: Application) : AndroidViewModel(application) {
 
 //    val allTasks: LiveData<List<PlaceWithPhotos>>
 

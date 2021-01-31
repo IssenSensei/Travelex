@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".placesList.PlacesListFragment">
+    tools:context=".userPlacesList.UserPlacesListFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/places_list_tabs"
@@ -70,15 +70,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/places_list_tabs" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/places_recycler_list_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/colorAccentDark"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="@+id/places_recycler_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/add_place" />
 </androidx.constraintlayout.widget.ConstraintLayout>
