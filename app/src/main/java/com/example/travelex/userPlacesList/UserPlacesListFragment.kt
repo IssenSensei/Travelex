@@ -27,21 +27,13 @@ class UserPlacesListFragment : Fragment(), PlacesListListener {
         val root = inflater.inflate(R.layout.fragment_user_places_list, container, false)
         val adapter = PlaceWithPhotosRecyclerViewAdapter(this, requireActivity())
 
-        userPlacesListViewModel.mediatorLiveData.observe(viewLifecycleOwner) {
-            it?.let {
+        userPlacesListViewModel.userPlacesList.observe(viewLifecycleOwner) {
+            it.let {
                 adapter.submitList(it)
             }
         }
 
         root.places_recycler_list.adapter = adapter
-        root.places_list_tab_own.setOnClickListener {
-            userPlacesListViewModel.getUserPlaces()
-        }
-
-        root.places_list_tabs_other.setOnClickListener {
-            userPlacesListViewModel.getOtherPlaces()
-        }
-
         return root
     }
 
@@ -50,10 +42,4 @@ class UserPlacesListFragment : Fragment(), PlacesListListener {
             UserPlacesListFragmentDirections.actionNavUserPlacesListToNavPlaceDetail(placeWithPhotos)
         findNavController().navigate(actionDetail)
     }
-
-    fun initializeListWithOtherPlaces(){
-        userPlacesListViewModel.getOtherPlaces()
-    }
-
-
 }

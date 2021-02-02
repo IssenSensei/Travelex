@@ -2,6 +2,7 @@ package com.example.travelex.userPlacesList
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.travelex.MainActivity.Companion.currentLoggedInUser
@@ -13,42 +14,14 @@ import kotlinx.coroutines.launch
 
 class UserPlacesListViewModel(application: Application) : AndroidViewModel(application) {
 
-//    val allTasks: LiveData<List<PlaceWithPhotos>>
-
-    var mediatorLiveData: MediatorLiveData<List<PlaceWithPhotos>> = MediatorLiveData<List<PlaceWithPhotos>>()
-
-    //            = MediatorLiveData<List<PlaceWithPhotos>>()
+    val userPlacesList: LiveData<List<PlaceWithPhotos>>
     private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
 
-    ////        allTasks = placeDao.getAllPlaces()
-////        mediatorLiveData.addSource(placeDao.getOtherPlaces(0)) { value -> mediatorLiveData.setValue(value) }
-//        mediatorLiveData.addSource(placeDao.getUserPlaces("currentLoggedInUser.uid")) { value ->
-//            mediatorLiveData.setValue(
-//                value
-//            )
-//        }
-//    }
+    init {
+        userPlacesList = placeDao.getUserPlaces(currentLoggedInUser.uid)
+    }
 
     fun insert(place: Place) = viewModelScope.launch(Dispatchers.IO) {
         placeDao.insert(place)
     }
-
-    fun getOtherPlaces() {
-        mediatorLiveData.addSource(placeDao.getAllPlaces()) { value ->
-            mediatorLiveData.setValue(
-                value
-            )
-        }
-        mediatorLiveData.removeSource(placeDao.getUserPlaces(currentLoggedInUser.uid))
-    }
-    fun getUserPlaces() {
-        mediatorLiveData.addSource(placeDao.getUserPlaces(currentLoggedInUser.uid)) { value ->
-            mediatorLiveData.setValue(
-                value
-            )
-        }
-        mediatorLiveData.removeSource(placeDao.getOtherPlaces(currentLoggedInUser.uid))
-    }
-
-
 }

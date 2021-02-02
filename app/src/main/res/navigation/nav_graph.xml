@@ -77,5 +77,9 @@
         android:id="@+id/nav_all_places_list"
         android:name="com.example.travelex.allPlacesList.AllPlacesListFragment"
         android:label="@string/title_all_places_list"
-        tools:layout="@layout/fragment_all_places_list" />
+        tools:layout="@layout/fragment_all_places_list" >
+        <action
+            android:id="@+id/action_nav_all_places_list_to_nav_place_detail"
+            app:destination="@id/nav_place_detail" />
+    </fragment>
 </navigation>
