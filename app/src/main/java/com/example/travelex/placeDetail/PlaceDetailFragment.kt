@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.databinding.FragmentPlaceDetailBinding
-import com.example.travelex.misc.AdapterImageSlider
+import com.example.travelex.misc.AdapterImageSliderAuto
 import com.example.travelex.misc.PhotoGridAdapter
 import com.example.travelex.misc.PhotoGridListener
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -79,7 +79,7 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
 
     private fun initSlider(binding: FragmentPlaceDetailBinding) {
         //todo wyswietlać grid na dole z możliwością usuwania zdjeć
-        val sliderAdapter = AdapterImageSlider(requireActivity(), placeDetailViewModel.placeWithPhotos.photos)
+        val sliderAdapter = AdapterImageSliderAuto(requireActivity(), placeDetailViewModel.placeWithPhotos.photos)
         binding.placeDetailPager.adapter = sliderAdapter
         sliderAdapter.startAutoSlider(sliderAdapter.count, binding.placeDetailPager)
     }

@@ -39,7 +39,7 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
 
     private val CAMERA_CODE = 0
     private val GALLERY_CODE = 1
-    private lateinit var sliderAdapter: AdapterImageSlider
+    private lateinit var sliderAdapterAuto: AdapterImageSliderAuto
     private lateinit var placeCreateViewModel: PlaceCreateViewModel
     private var rotate = false
     private var selectedPosition: LatLng? = null
@@ -240,9 +240,9 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
 
     private fun updateSlider() {
         if (place_create_pager.isVisible) {
-            sliderAdapter.stopAutoSlider()
-            sliderAdapter.notifyDataSetChanged()
-            sliderAdapter.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
+            sliderAdapterAuto.stopAutoSlider()
+            sliderAdapterAuto.notifyDataSetChanged()
+            sliderAdapterAuto.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
         } else {
             startSlider()
         }
@@ -252,9 +252,9 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
         if (placeCreateViewModel.photos.size > 0) {
             place_create_pager.visibility = View.VISIBLE
             place_create_pager_placeholder.visibility = View.INVISIBLE
-            sliderAdapter = AdapterImageSlider(requireActivity(), placeCreateViewModel.photos)
-            place_create_pager.adapter = sliderAdapter
-            sliderAdapter.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
+            sliderAdapterAuto = AdapterImageSliderAuto(requireActivity(), placeCreateViewModel.photos)
+            place_create_pager.adapter = sliderAdapterAuto
+            sliderAdapterAuto.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
         }
     }
 

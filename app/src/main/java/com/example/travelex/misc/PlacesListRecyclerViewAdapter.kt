@@ -1,12 +1,18 @@
 package com.example.travelex.misc
 
 import android.app.Activity
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import com.example.travelex.R
 import com.example.travelex.database.PlaceWithPhotos
 import com.example.travelex.databinding.ItemPlaceBinding
 
@@ -43,13 +49,54 @@ class PlaceWithPhotosRecyclerViewAdapter(
 
             val sliderAdapter = AdapterImageSlider(activity, item.photos)
             binding.placeItemPager.adapter = sliderAdapter
-            sliderAdapter.startAutoSlider(item.photos.size, binding.placeItemPager)
+            addSliderDots(binding.placeItemDots, sliderAdapter.count, 0)
+            binding.placeItemPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
+
+                override fun onPageSelected(position: Int) =
+                    addSliderDots(binding.placeItemDots, sliderAdapter.count, position)
+
+                override fun onPageScrollStateChanged(state: Int) {}
+            })
 
             binding.clickListener = placesListListener
             binding.executePendingBindings()
         }
-    }
 
+        private fun addSliderDots(placeItemDots: LinearLayout, count: Int, position: Int) {
+            placeItemDots.removeAllViews()
+            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams(15, 15))
+            params.setMargins(10, 10, 10, 10)
+            for (i in 0 until count) {
+                val image: ImageView = ImageView(placeItemDots.context).apply {
+                    layoutParams = params
+                    setImageResource(R.drawable.shape_dot)
+                    if (i != position) {
+                        setColorFilter(
+                            ContextCompat.getColor(
+                                placeItemDots.context,
+                                R.color.overlay_dark_10
+                            ), PorterDuff.Mode.SRC_ATOP
+                        )
+                    } else {
+                        setColorFilter(
+                            ContextCompat.getColor(
+                                placeItemDots.context,
+                                R.color.colorPrimary
+                            ), PorterDuff.Mode.SRC_ATOP
+                        )
+                    }
+                }
+                placeItemDots.addView(image)
+            }
+
+        }
+    }
 }
 
 class PlaceWithPhotosListDiffCallback : DiffUtil.ItemCallback<PlaceWithPhotos>() {

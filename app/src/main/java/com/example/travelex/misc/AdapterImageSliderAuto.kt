@@ -14,13 +14,19 @@ import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
 import kotlinx.android.synthetic.main.item_image.view.*
 
-class AdapterImageSlider(private val activity: Activity, items: List<PhotoModel>) : PagerAdapter() {
+class AdapterImageSliderAuto(private val activity: Activity, items: List<PhotoModel>) : PagerAdapter() {
 
+    private var runnable: Runnable? = null
+    private var handler = Handler()
     private var photos: List<PhotoModel> = items
     private var onImageSliderImageClickedListener: OnImageSliderImageClickedListener? = null
 
     override fun getCount(): Int {
         return photos.size
+    }
+
+    fun getItem(pos: Int): PhotoModel {
+        return photos[pos]
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -42,7 +48,25 @@ class AdapterImageSlider(private val activity: Activity, items: List<PhotoModel>
         return view
     }
 
+
+    fun startAutoSlider(count: Int, placeDetailPager: ViewPager) {
+        runnable = Runnable {
+            var pos: Int = placeDetailPager.currentItem
+            pos += 1
+            if (pos >= count) pos = 0
+            placeDetailPager.currentItem = pos
+            handler.postDelayed(runnable!!, 3000)
+        }
+        handler.postDelayed(runnable!!, 3000)
+    }
+
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         (container as ViewPager).removeView(`object` as View)
     }
+
+    fun stopAutoSlider(){
+        runnable?.let { handler.removeCallbacks(it) }
+    }
+
 }
+

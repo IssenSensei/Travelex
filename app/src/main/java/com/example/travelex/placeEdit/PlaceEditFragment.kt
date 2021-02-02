@@ -42,7 +42,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
     private lateinit var placeEditViewModel: PlaceEditViewModel
     private lateinit var placeWithPhotos: PlaceWithPhotos
     private lateinit var selectedPosition: LatLng
-    private lateinit var sliderAdapter: AdapterImageSlider
+    private lateinit var sliderAdapterAuto: AdapterImageSliderAuto
     private val CAMERA_CODE = 0
     private val GALLERY_CODE = 1
     private var rotate = false
@@ -276,9 +276,9 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
 
     private fun updateSlider() {
         if (place_edit_pager.isVisible) {
-            sliderAdapter.stopAutoSlider()
-            sliderAdapter.notifyDataSetChanged()
-            sliderAdapter.startAutoSlider(placeEditViewModel.photos.size, place_edit_pager)
+            sliderAdapterAuto.stopAutoSlider()
+            sliderAdapterAuto.notifyDataSetChanged()
+            sliderAdapterAuto.startAutoSlider(placeEditViewModel.photos.size, place_edit_pager)
         } else {
             startSlider()
         }
@@ -288,9 +288,9 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
         if (placeEditViewModel.photos.size > 0) {
             place_edit_pager.visibility = View.VISIBLE
             place_edit_pager_placeholder.visibility = View.INVISIBLE
-            sliderAdapter = AdapterImageSlider(requireActivity(), placeEditViewModel.photos)
-            place_edit_pager.adapter = sliderAdapter
-            sliderAdapter.startAutoSlider(placeEditViewModel.photos.size, place_edit_pager)
+            sliderAdapterAuto = AdapterImageSliderAuto(requireActivity(), placeEditViewModel.photos)
+            place_edit_pager.adapter = sliderAdapterAuto
+            sliderAdapterAuto.startAutoSlider(placeEditViewModel.photos.size, place_edit_pager)
         }
     }
 
