@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
-
+import com.example.travelex.TravelexApplication
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -19,13 +19,15 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class PlacesMapFragment : Fragment() {
 
-    private lateinit var placesMapViewModel: PlacesMapViewModel
+    private val placesMapViewModel: PlacesMapViewModel by viewModels {
+        PlacesMapViewModelFactory(
+            (requireActivity().application as TravelexApplication).placeDao
+        )
+    }
 
     private val callback = OnMapReadyCallback { googleMap ->
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
-        placesMapViewModel.allPlaces.observe(this) {
-            it.forEach {
+        placesMapViewModel.allPlaces.observe(this) { placesWithPhotos ->
+            placesWithPhotos.forEach {
 
                 val location = it.place.latLng.split(",".toRegex()).toTypedArray()
                 val latLng = LatLng(location[0].toDouble(), location[1].toDouble())
@@ -50,7 +52,6 @@ class PlacesMapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        placesMapViewModel = ViewModelProvider(this).get(PlacesMapViewModel::class.java)
         return inflater.inflate(R.layout.fragment_places_map, container, false)
     }
 

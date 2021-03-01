@@ -2,7 +2,6 @@ package com.example.travelex.misc
 
 import android.app.Activity
 import android.content.Context
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,17 +15,11 @@ import kotlinx.android.synthetic.main.item_image.view.*
 
 class AdapterImageSlider(private val activity: Activity, items: List<PhotoModel>) : PagerAdapter() {
 
-    private var runnable: Runnable? = null
-    private var handler = Handler()
     private var photos: List<PhotoModel> = items
     private var onImageSliderImageClickedListener: OnImageSliderImageClickedListener? = null
 
     override fun getCount(): Int {
         return photos.size
-    }
-
-    fun getItem(pos: Int): PhotoModel {
-        return photos[pos]
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -48,28 +41,7 @@ class AdapterImageSlider(private val activity: Activity, items: List<PhotoModel>
         return view
     }
 
-
-    fun startAutoSlider(count: Int, placeDetailPager: ViewPager) {
-        runnable = Runnable {
-            var pos: Int = placeDetailPager.currentItem
-            pos += 1
-            if (pos >= count) pos = 0
-            placeDetailPager.currentItem = pos
-            handler.postDelayed(runnable!!, 3000)
-        }
-        handler.postDelayed(runnable!!, 3000)
-    }
-
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         (container as ViewPager).removeView(`object` as View)
     }
-
-    fun stopAutoSlider(){
-        runnable?.let { handler.removeCallbacks(it) }
-    }
-
-}
-
-interface OnImageSliderImageClickedListener {
-    fun onItemClick(view: View?, obj: PhotoModel?)
 }

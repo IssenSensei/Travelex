@@ -1,23 +1,18 @@
 package com.example.travelex.profile
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.travelex.database.TravelexDatabase
 import com.example.travelex.database.User
+import com.example.travelex.database.UserDao
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(application: Application) : AndroidViewModel(application) {
+class ProfileViewModel(private val userDao: UserDao) : ViewModel() {
 
-    private val userDao =
-        TravelexDatabase.getDatabase(application, viewModelScope).userDao
+    var photo : String = ""
 
     fun updateUser(currentLoggedInUser: User) {
         viewModelScope.launch {
             userDao.updateUser(currentLoggedInUser)
         }
     }
-
-    var photo : String = ""
-
 }

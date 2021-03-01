@@ -1,20 +1,11 @@
 package com.example.travelex.placesMap
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.ViewModel
+import com.example.travelex.database.PlaceDao
 import com.example.travelex.database.PlaceWithPhotos
-import com.example.travelex.database.TravelexDatabase
 
-class PlacesMapViewModel(application: Application) : AndroidViewModel(application) {
+class PlacesMapViewModel(placeDao: PlaceDao) : ViewModel() {
 
-    val allPlaces: LiveData<List<PlaceWithPhotos>>
-
-    private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
-
-    init {
-        allPlaces = placeDao.getAllPlaces()
-    }
-
+    val allPlaces: LiveData<List<PlaceWithPhotos>> = placeDao.getAllPlaces()
 }

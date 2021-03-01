@@ -3,24 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_places_list">
+    app:startDestination="@id/nav_all_places_list">
 
     <fragment
-        android:id="@+id/nav_places_list"
-        android:name="com.example.travelex.placesList.PlacesListFragment"
-        android:label="@string/title_places_list"
-        tools:layout="@layout/fragment_places_list">
+        android:id="@+id/nav_user_places_list"
+        android:name="com.example.travelex.userPlacesList.UserPlacesListFragment"
+        android:label="@string/title_user_places_list"
+        tools:layout="@layout/fragment_user_places_list">
         <action
-            android:id="@+id/action_nav_places_list_to_nav_place_detail"
+            android:id="@+id/action_nav_user_places_list_to_nav_place_detail"
             app:destination="@id/nav_place_detail" />
-        <action
-            android:id="@+id/action_nav_places_list_to_nav_place_create"
-            app:destination="@id/nav_place_create" />
     </fragment>
     <fragment
         android:id="@+id/nav_place_detail"
         android:name="com.example.travelex.placeDetail.PlaceDetailFragment"
-        android:label="My place"
         tools:layout="@layout/fragment_place_detail">
         <argument
             android:name="placeWithPhotos"
@@ -35,9 +31,9 @@
         android:label="Add place"
         tools:layout="@layout/fragment_place_create">
         <action
-            android:id="@+id/action_nav_place_create_to_nav_places_list"
-            app:destination="@id/nav_places_list"
-            app:popUpTo="@id/nav_places_list"
+            android:id="@+id/action_nav_place_create_to_nav_user_places_list"
+            app:destination="@id/nav_user_places_list"
+            app:popUpTo="@id/nav_user_places_list"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_nav_place_create_to_nav_maps"
@@ -76,4 +72,13 @@
         android:name="com.example.travelex.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/nav_all_places_list"
+        android:name="com.example.travelex.allPlacesList.AllPlacesListFragment"
+        android:label="@string/title_all_places_list"
+        tools:layout="@layout/fragment_all_places_list" >
+        <action
+            android:id="@+id/action_nav_all_places_list_to_nav_place_detail"
+            app:destination="@id/nav_place_detail" />
+    </fragment>
 </navigation>
