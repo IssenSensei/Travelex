@@ -1,21 +1,12 @@
 package com.example.travelex.placeEdit
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.travelex.database.PhotoModel
-import com.example.travelex.database.Place
-import com.example.travelex.database.PlaceWithPhotos
-import com.example.travelex.database.TravelexDatabase
+import androidx.lifecycle.*
+import com.example.travelex.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlaceEditViewModel(application: Application) : AndroidViewModel(application) {
+class PlaceEditViewModel(private val placeDao: PlaceDao, private val photoModelDao: PhotoModelDao) : ViewModel() {
 
-    private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
-    private val photoModelDao = TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
     var photos = mutableListOf<PhotoModel>()
     val photosLive = MutableLiveData<List<PhotoModel>>()
 

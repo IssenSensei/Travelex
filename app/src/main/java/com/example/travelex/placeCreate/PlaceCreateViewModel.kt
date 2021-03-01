@@ -1,21 +1,17 @@
 package com.example.travelex.placeCreate
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.travelex.database.PhotoModel
+import com.example.travelex.database.PhotoModelDao
 import com.example.travelex.database.Place
-import com.example.travelex.database.TravelexDatabase
-import com.google.android.gms.maps.model.LatLng
+import com.example.travelex.database.PlaceDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlaceCreateViewModel(application: Application) : AndroidViewModel(application) {
+class PlaceCreateViewModel(private val placeDao: PlaceDao, private val photoModelDao: PhotoModelDao) : ViewModel() {
 
-    private val placeDao = TravelexDatabase.getDatabase(application, viewModelScope).placeDao
-    private val photoModelDao =
-        TravelexDatabase.getDatabase(application, viewModelScope).photoModelDao
     val photos = mutableListOf<PhotoModel>()
     val photosLive = MutableLiveData<List<PhotoModel>>()
     var location: String? = null

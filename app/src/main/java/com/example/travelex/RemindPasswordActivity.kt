@@ -1,7 +1,6 @@
 package com.example.travelex
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -15,15 +14,15 @@ class RemindPasswordActivity : AppCompatActivity() {
     }
 
 
-    fun remindPassword(view: View) {
+    fun remindPassword() {
         val auth = FirebaseAuth.getInstance()
 
         auth.sendPasswordResetEmail(password_remind_email.text.toString())
             .addOnSuccessListener {
-                Toast.makeText(this, "Wiadomość wyłana pomyślnie, sprawdź skrzynkę pocztową!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.recovery_email_sent_success), Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Wystąpił błąd, spróbuj ponownie", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.recovery_email_sent_failure), Toast.LENGTH_SHORT).show()
             }
     }
 

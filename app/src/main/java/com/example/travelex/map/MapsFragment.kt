@@ -110,7 +110,7 @@ class MapsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                     .position(it)
                     .title("Unknown Location")
                     .snippet(it.latitude.toString() + ", " + it.longitude.toString())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
             )
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 16f))
             marker.showInfoWindow()

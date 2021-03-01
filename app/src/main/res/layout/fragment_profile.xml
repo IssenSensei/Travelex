@@ -100,7 +100,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_add_photo"
             android:tint="@android:color/white"
-            app:backgroundTint="@color/colorAccentDark"
+            app:backgroundTint="@color/colorPrimaryDark"
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="@id/user_edit_background"
             app:layout_constraintEnd_toEndOf="parent"

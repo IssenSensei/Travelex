@@ -1,5 +1,6 @@
 package com.example.travelex.placeCreate
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -12,12 +13,13 @@ import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
+import com.example.travelex.TravelexApplication
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
 import com.example.travelex.misc.*
@@ -32,7 +34,6 @@ import java.io.File
 import java.io.IOException
 import java.text.DateFormat
 import java.util.*
-import kotlin.jvm.Throws
 
 
 class PlaceCreateFragment : Fragment(), PhotoGridListener {
@@ -40,12 +41,18 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
     private val CAMERA_CODE = 0
     private val GALLERY_CODE = 1
     private lateinit var sliderAdapterAuto: AdapterImageSliderAuto
-    private lateinit var placeCreateViewModel: PlaceCreateViewModel
     private var rotate = false
     private var selectedPosition: LatLng? = null
     private lateinit var currentPhotoPath: String
     private lateinit var photoGridAdapter: PhotoGridAdapter
     private lateinit var auth: FirebaseAuth
+
+    private val placeCreateViewModel: PlaceCreateViewModel by viewModels {
+        PlaceCreateViewModelFactory(
+            (requireActivity().application as TravelexApplication).placeDao,
+            (requireActivity().application as TravelexApplication).photoModelDao
+        )
+    }
 
     private val callback = OnMapReadyCallback { googleMap ->
         val zoom = 16f
@@ -65,9 +72,8 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        placeCreateViewModel = ViewModelProvider(this).get(PlaceCreateViewModel::class.java)
         return inflater.inflate(R.layout.fragment_place_create, container, false)
     }
 
@@ -97,6 +103,7 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private fun initPhoto() {
         ViewAnimation.initShowOut(place_create_gallery_container)
         ViewAnimation.initShowOut(place_create_camera_container)
@@ -252,7 +259,8 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
         if (placeCreateViewModel.photos.size > 0) {
             place_create_pager.visibility = View.VISIBLE
             place_create_pager_placeholder.visibility = View.INVISIBLE
-            sliderAdapterAuto = AdapterImageSliderAuto(requireActivity(), placeCreateViewModel.photos)
+            sliderAdapterAuto =
+                AdapterImageSliderAuto(requireActivity(), placeCreateViewModel.photos)
             place_create_pager.adapter = sliderAdapterAuto
             sliderAdapterAuto.startAutoSlider(placeCreateViewModel.photos.size, place_create_pager)
         }
@@ -274,7 +282,6 @@ class PlaceCreateFragment : Fragment(), PhotoGridListener {
 
     override fun onDeleteClicked(photoModel: PhotoModel) {
         placeCreateViewModel.removePhoto(photoModel)
-
         //todo remove this call after detecting error with views not vanishing
         photoGridAdapter.notifyDataSetChanged()
         if (placeCreateViewModel.photos.size == 0) {

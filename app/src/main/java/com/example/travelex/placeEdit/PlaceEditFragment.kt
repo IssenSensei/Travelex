@@ -1,5 +1,6 @@
 package com.example.travelex.placeEdit
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -12,13 +13,14 @@ import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
+import com.example.travelex.TravelexApplication
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.database.Place
 import com.example.travelex.database.PlaceWithPhotos
@@ -35,11 +37,15 @@ import java.io.File
 import java.io.IOException
 import java.text.DateFormat
 import java.util.*
-import kotlin.jvm.Throws
 
 class PlaceEditFragment : Fragment(), PhotoGridListener {
 
-    private lateinit var placeEditViewModel: PlaceEditViewModel
+    private val placeEditViewModel: PlaceEditViewModel by viewModels {
+        PlaceEditViewModelFactory(
+            (requireActivity().application as TravelexApplication).placeDao,
+            (requireActivity().application as TravelexApplication).photoModelDao
+        )
+    }
     private lateinit var placeWithPhotos: PlaceWithPhotos
     private lateinit var selectedPosition: LatLng
     private lateinit var sliderAdapterAuto: AdapterImageSliderAuto
@@ -70,9 +76,8 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        placeEditViewModel = ViewModelProvider(this).get(PlaceEditViewModel::class.java)
         val binding = FragmentPlaceEditBinding.inflate(inflater, container, false)
         val safeArgs: PlaceEditFragmentArgs by navArgs()
         placeWithPhotos = safeArgs.placeWithPhotos
@@ -110,8 +115,8 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
     }
 
     private fun initMap(binding: FragmentPlaceEditBinding) {
-        val latlong = placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
-        selectedPosition = LatLng(latlong[0].toDouble(), latlong[1].toDouble())
+        val latLng = placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
+        selectedPosition = LatLng(latLng[0].toDouble(), latLng[1].toDouble())
 
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.place_edit_map) as SupportMapFragment?
@@ -119,9 +124,10 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
 
 
         binding.placeEditMapButton.setOnClickListener {
-            val latlong = placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
+            val placeLatLng = placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
             val bundle =
-                bundleOf("selectedPosition" to LatLng(latlong[0].toDouble(), latlong[1].toDouble()))
+                bundleOf("selectedPosition" to LatLng(placeLatLng[0].toDouble(),
+                    placeLatLng[1].toDouble()))
             findNavController().navigate(R.id.nav_maps, bundle)
         }
 
@@ -136,6 +142,7 @@ class PlaceEditFragment : Fragment(), PhotoGridListener {
             }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private fun initPhoto(binding: FragmentPlaceEditBinding) {
         ViewAnimation.initShowOut(binding.placeEditGalleryContainer)
         ViewAnimation.initShowOut(binding.placeEditCameraContainer)

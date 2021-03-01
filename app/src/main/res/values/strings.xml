@@ -47,4 +47,9 @@
     <string name="description">Description</string>
     <string name="localization">Localization</string>
     <string name="image">image</string>
+    <string name="recovery_email_sent_success">Wiadomość wyłana pomyślnie, sprawdź skrzynkę pocztową!</string>
+    <string name="recovery_email_sent_failure">Wystąpił błąd, spróbuj ponownie</string>
+    <string name="invalid_data">Invalid data</string>
+    <string name="authentication_failed">Authentication failed.</string>
+    <string name="error">Error, please try again!</string>
 </resources>

@@ -220,7 +220,7 @@
                 android:scaleX="0.8"
                 android:scaleY="0.8"
                 android:src="@drawable/ic_world"
-                android:tint="@color/colorAccentDark"
+                android:tint="@color/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="@id/imageButton6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/imageButton6" />
@@ -255,7 +255,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_add_photo"
                 android:tint="@android:color/white"
-                app:backgroundTint="@color/colorAccentDark"
+                app:backgroundTint="@color/colorPrimaryDark"
                 app:fabSize="normal"
                 app:layout_constraintBottom_toBottomOf="@id/place_edit_pager_placeholder"
                 app:layout_constraintEnd_toEndOf="parent"

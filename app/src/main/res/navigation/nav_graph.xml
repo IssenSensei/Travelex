@@ -17,7 +17,6 @@
     <fragment
         android:id="@+id/nav_place_detail"
         android:name="com.example.travelex.placeDetail.PlaceDetailFragment"
-        android:label="My place"
         tools:layout="@layout/fragment_place_detail">
         <argument
             android:name="placeWithPhotos"

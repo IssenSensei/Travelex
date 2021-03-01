@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorAccentDark" />
+        app:tint="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/register_welcome_text"
@@ -116,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginBottom="@dimen/spacing_large"
-        android:background="@color/colorAccentDark"
+        android:background="@color/colorPrimaryDark"
         android:onClick="register"
         android:text="@string/register"
         android:textAllCaps="false"
@@ -146,7 +146,7 @@
         android:onClick="navigateLogin"
         android:text="@string/sign_in"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/colorAccentDark"
+        android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

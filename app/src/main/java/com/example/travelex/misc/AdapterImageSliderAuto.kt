@@ -25,10 +25,6 @@ class AdapterImageSliderAuto(private val activity: Activity, items: List<PhotoMo
         return photos.size
     }
 
-    fun getItem(pos: Int): PhotoModel {
-        return photos[pos]
-    }
-
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view === `object` as RelativeLayout
     }

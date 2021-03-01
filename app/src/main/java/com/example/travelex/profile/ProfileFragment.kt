@@ -1,51 +1,57 @@
 package com.example.travelex.profile
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.content.FileProvider
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
+import com.example.travelex.TravelexApplication
 import com.example.travelex.database.User
 import com.example.travelex.databinding.FragmentProfileBinding
 import com.example.travelex.misc.ViewAnimation
-import kotlinx.android.synthetic.main.fragment_place_create.*
-import kotlinx.android.synthetic.main.fragment_place_create.back_drop
+import com.example.travelex.placeDetail.PlaceDetailFragmentDirections
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.io.File
 import java.io.IOException
 import java.text.DateFormat
 import java.util.*
-import kotlin.jvm.Throws
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var profileViewModel: ProfileViewModel
     private val CAMERA_CODE = 0
     private val GALLERY_CODE = 1
     private lateinit var currentPhotoPath: String
     private lateinit var onProfileEditListener: OnProfileEditListener
+    private lateinit var logoutListener: LogoutListener
     private var rotate = false
 
+    private val profileViewModel: ProfileViewModel by viewModels {
+        ProfileViewModelFactory(
+            (requireActivity().application as TravelexApplication).userDao
+        )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         val binding: FragmentProfileBinding =
             FragmentProfileBinding.inflate(inflater, container, false)
         binding.user = currentLoggedInUser
@@ -62,6 +68,19 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_logout, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_logout -> {
+                logoutListener.onLogOut()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPhoto()
@@ -72,8 +91,12 @@ class ProfileFragment : Fragment() {
         if (context is OnProfileEditListener) {
             onProfileEditListener = context
         }
+        if (context is LogoutListener) {
+            logoutListener = context
+        }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private fun initPhoto() {
         ViewAnimation.initShowOut(user_edit_gallery_container)
         ViewAnimation.initShowOut(user_edit_camera_container)
@@ -163,4 +186,8 @@ class ProfileFragment : Fragment() {
 
 interface OnProfileEditListener {
     fun onProfileEdit(user: User)
+}
+
+interface LogoutListener {
+    fun onLogOut()
 }

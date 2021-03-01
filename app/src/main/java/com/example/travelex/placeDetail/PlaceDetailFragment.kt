@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.travelex.MainActivity
+import com.example.travelex.MainActivity.Companion.currentLoggedInUser
 import com.example.travelex.R
 import com.example.travelex.database.PhotoModel
 import com.example.travelex.databinding.FragmentPlaceDetailBinding
@@ -26,11 +28,13 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
 
     private val callback = OnMapReadyCallback { googleMap ->
 
-        val latLng = placeDetailViewModel.placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
+        val latLng =
+            placeDetailViewModel.placeWithPhotos.place.latLng.split(",".toRegex()).toTypedArray()
         val location = LatLng(latLng[0].toDouble(), latLng[1].toDouble())
 
         val zoom = 16f
-        googleMap.addMarker(MarkerOptions().position(location).title(placeDetailViewModel.placeWithPhotos.place.name))
+        googleMap.addMarker(MarkerOptions().position(location)
+            .title(placeDetailViewModel.placeWithPhotos.place.name))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoom))
 
         googleMap.uiSettings.isMapToolbarEnabled = false
@@ -44,15 +48,16 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         placeDetailViewModel = ViewModelProvider(this).get(PlaceDetailViewModel::class.java)
         val binding = FragmentPlaceDetailBinding.inflate(inflater, container, false)
         val safeArgs: PlaceDetailFragmentArgs by navArgs()
         placeDetailViewModel.placeWithPhotos = safeArgs.placeWithPhotos
         binding.placeWithPhotos = placeDetailViewModel.placeWithPhotos
+        (requireActivity() as MainActivity).title = placeDetailViewModel.placeWithPhotos.place.name
 
-        initMap(binding)
+        initMap()
         initSlider(binding)
         initGrid(binding)
 
@@ -62,7 +67,9 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
-        inflater.inflate(R.menu.menu_details, menu)
+        if (placeDetailViewModel.placeWithPhotos.place.userUid == currentLoggedInUser.uid) {
+            inflater.inflate(R.menu.menu_details, menu)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -78,13 +85,13 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
     }
 
     private fun initSlider(binding: FragmentPlaceDetailBinding) {
-        //todo wyswietlać grid na dole z możliwością usuwania zdjeć
-        val sliderAdapter = AdapterImageSliderAuto(requireActivity(), placeDetailViewModel.placeWithPhotos.photos)
+        val sliderAdapter =
+            AdapterImageSliderAuto(requireActivity(), placeDetailViewModel.placeWithPhotos.photos)
         binding.placeDetailPager.adapter = sliderAdapter
         sliderAdapter.startAutoSlider(sliderAdapter.count, binding.placeDetailPager)
     }
 
-    private fun initMap(binding: FragmentPlaceDetailBinding) {
+    private fun initMap() {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.place_detail_map) as SupportMapFragment?
         mapFragment!!.getMapAsync(callback)
@@ -101,10 +108,14 @@ class PlaceDetailFragment : Fragment(), PhotoGridListener {
     }
 
     override fun onDeleteClicked(photoModel: PhotoModel) {
-        Toast.makeText(requireContext(), "delete" + photoModel.photoID.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(),
+            "delete" + photoModel.photoID.toString(),
+            Toast.LENGTH_SHORT).show()
     }
 
     override fun onPhotoClicked(photoModel: PhotoModel) {
-        Toast.makeText(requireContext(), "photo" + photoModel.photoID.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(),
+            "photo" + photoModel.photoID.toString(),
+            Toast.LENGTH_SHORT).show()
     }
 }

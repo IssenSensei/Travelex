@@ -12,17 +12,6 @@ import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 @BindingAdapter("photo")
-fun setPhoto(imageView: ImageView, photoList: MutableList<PhotoModel>) {
-    if (photoList.size != 0) {
-        imageView.visibility = View.VISIBLE
-        photoList.forEach {
-            Glide.with(imageView.context).load(it.photoUrl).placeholder(R.drawable.ic_profile)
-                .into(imageView)
-        }
-    }
-}
-
-@BindingAdapter("photo")
 fun setPhoto(imageView: ImageView, photo: String) {
     Glide.with(imageView.context).load(photo).placeholder(R.drawable.ic_profile)
         .into(imageView)

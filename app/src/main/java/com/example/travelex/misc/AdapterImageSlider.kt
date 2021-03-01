@@ -2,7 +2,6 @@ package com.example.travelex.misc
 
 import android.app.Activity
 import android.content.Context
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

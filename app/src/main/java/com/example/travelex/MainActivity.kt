@@ -1,33 +1,38 @@
 package com.example.travelex
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.travelex.database.TravelexDatabase
 import com.example.travelex.database.User
+import com.example.travelex.placeDetail.PlaceDetailFragmentDirections
+import com.example.travelex.profile.LogoutListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LogoutListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var auth: FirebaseAuth
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance()
         MainScope().launch {
             currentLoggedInUser =
                 TravelexDatabase.getDatabase(applicationContext, this).userDao.getUser(auth.uid)
@@ -58,5 +63,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var currentLoggedInUser: User
+    }
+
+    override fun onLogOut() {
+        auth.signOut()
+        setResult(RESULT_CANCELED)
+        finish()
     }
 }
