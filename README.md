@@ -14,7 +14,7 @@ The application uses Firebase to service user accounts, storing the remaining da
 ## Screenshots
 
 <p float="left">
-  <img src="images/place_add.png" width="425" />
-  <img src="images/place_list.png" width="425" /> 
-  <img src="images/place_map.png" width="425" />
+  <img src="images/place_add.png" width="300" />
+  <img src="images/place_list.png" width="300" /> 
+  <img src="images/place_map.png" width="300" />
 </p>
